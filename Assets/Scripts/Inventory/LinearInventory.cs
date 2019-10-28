@@ -8,6 +8,7 @@ public class LinearInventory : MonoBehaviour
     public static List<Item> inv = new List<Item>();
     public static bool showInv;
     public Item item;
+    public PlayerHandler player;
     public Vector2 scr;
     public Item selectedItem;
     public static int money;
@@ -29,6 +30,7 @@ public class LinearInventory : MonoBehaviour
 
     void Start()
     {
+        
         inv.Add(ItemData.CreateItem(300));
         inv.Add(ItemData.CreateItem(301));
         inv.Add(ItemData.CreateItem(302));
@@ -279,6 +281,14 @@ public class LinearInventory : MonoBehaviour
                             equippedItems[1].equippedItem.name = selectedItem.Name;
                         }
                     }
+                    else
+                    {
+                        if (GUI.Button(new Rect(4 * scr.x, 6.5f * scr.y, 1.5f * scr.x, 0.25f * scr.y), "strip"))
+                        {
+                            Destroy(equippedItems[1].equippedItem);
+                            equippedItems[1].equippedItem = null;
+                        }
+                    }
                     break;
                 case ItemTypes.Weapon:
 
@@ -306,13 +316,17 @@ public class LinearInventory : MonoBehaviour
                 case ItemTypes.Potion:
                     if (GUI.Button(new Rect(4 * scr.x, 6.5f * scr.y, 1.5f * scr.x, 0.25f * scr.y), "Drink"))
                     {
+                        
+                            player.curHealth += selectedItem.Heal;
+                            selectedItem.Amount -= 1;
 
                     }
                     break;
                 case ItemTypes.Food:
                     if (GUI.Button(new Rect(4 * scr.x, 6.5f * scr.y, 1.5f * scr.x, 0.25f * scr.y), "Eat"))
                     {
-
+                        player.curHealth += selectedItem.Heal;
+                        selectedItem.Amount -= 1;
                     }
                     break;
                 case ItemTypes.Ingredient:

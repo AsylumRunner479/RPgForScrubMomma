@@ -270,8 +270,8 @@ public static class ItemData
                 damage = 0;
                 armour = 0;
                 heal = 0;
-                iconName = "Craftable/mushroom";
-                meshName = "Craftable/mushroom";
+                iconName = "Craftable/grass";
+                meshName = "Craftable/grass";
                 type = ItemTypes.Craftable;
                 break;
             case 502:
@@ -291,8 +291,8 @@ public static class ItemData
             #endregion
             #region Quest 600-699
             case 600:
-                name = "blue key";
-                description = "opens blue keys";
+                name = "purple key";
+                description = "opens purple doors";
                 //Amount of items of that type...Stackable
                 amount = 0;
                 //Buy and Sell Price
@@ -300,13 +300,13 @@ public static class ItemData
                 damage = 0;
                 armour = 0;
                 heal = 0;
-                iconName = "Quest/blue";
-                meshName = "Quest/blue";
+                iconName = "Quest/purple";
+                meshName = "Quest/purple";
                 type = ItemTypes.Quest;
                 break;
             case 601:
-                name = "red key";
-                description = "opens red keys";
+                name = "yellow key";
+                description = "opens yellow doors";
                 //Amount of items of that type...Stackable
                 amount = 0;
                 //Buy and Sell Price
@@ -314,13 +314,13 @@ public static class ItemData
                 damage = 0;
                 armour = 0;
                 heal = 0;
-                iconName = "Quest/red";
-                meshName = "Quest/red";
+                iconName = "Quest/yellow";
+                meshName = "Quest/yellow";
                 type = ItemTypes.Quest;
                 break;
             case 602:
                 name = "green key";
-                description = "opens green keys";
+                description = "opens green doors";
                 //Amount of items of that type...Stackable
                 amount = 0;
                 //Buy and Sell Price
@@ -335,45 +335,45 @@ public static class ItemData
             #endregion
             #region Misc 700-799
             case 700:
-                name = "hair";
+                name = "diamond";
                 description = "why do you have this";
                 //Amount of items of that type...Stackable
                 amount = 0;
                 //Buy and Sell Price
-                value = 0;
+                value = 1000;
                 damage = 0;
                 armour = 0;
                 heal = 0;
-                iconName = "Misc/hair";
-                meshName = "Misc/hair";
+                iconName = "Misc/trans";
+                meshName = "Misc/trans";
                 type = ItemTypes.Misc;
                 break;
             case 701:
-                name = "hair";
+                name = "onyx";
                 description = "why do you have this";
                 //Amount of items of that type...Stackable
                 amount = 0;
                 //Buy and Sell Price
-                value = 0;
+                value = 10;
                 damage = 0;
                 armour = 0;
                 heal = 0;
-                iconName = "Misc/hair";
-                meshName = "Misc/hair";
+                iconName = "Misc/black";
+                meshName = "Misc/black";
                 type = ItemTypes.Misc;
                 break;
             case 702:
-                name = "hair";
+                name = "gold";
                 description = "why do you have this";
                 //Amount of items of that type...Stackable
                 amount = 0;
                 //Buy and Sell Price
-                value = 0;
+                value = 100;
                 damage = 0;
                 armour = 0;
                 heal = 0;
-                iconName = "Misc/hair";
-                meshName = "Misc/hair";
+                iconName = "Misc/yellow";
+                meshName = "Misc/yellow";
                 type = ItemTypes.Misc;
                 break;
                 #endregion
