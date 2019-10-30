@@ -233,15 +233,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 962d99b5006debf4ba17f6ec1dba1b28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text:
-  - Hello Adventure
-  - Do You want to hear a tale?
-  - I fought a dragon once
-  - you are awesome
-  - same to you
+  dialogueColor: {r: 1, g: 0, b: 0, a: 1}
+  dialogue:
+  - Hello
+  - World
   index: 0
   option: 1
-  showDlg: 0
+  showDlg: 1
 --- !u!1001 &45498490
 PrefabInstance:
   m_ObjectHideFlags: 0

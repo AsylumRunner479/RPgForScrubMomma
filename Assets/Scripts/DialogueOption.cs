@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class DialogueOption : MonoBehaviour
 {
-    public string[] text;
+    public Color dialogueColor = Color.white;
+    public string[] dialogue;
     public int index, option;
     public bool showDlg;
     private void OnGUI()
@@ -13,8 +14,10 @@ public class DialogueOption : MonoBehaviour
         {
             Vector2 scr = new Vector2(Screen.width / 16, Screen.height / 9);
             //makes half the screen into a dialogue box
-            GUI.Box(new Rect(0, scr.y * 6,Screen.width, scr.y*3), text[index]);
-            if(!(index >= text.Length-1 || index == option))
+            string text = "<color=\"#" + ColorUtility.ToHtmlStringRGB(dialogueColor) + "\">" + dialogue[index] + "</color>";
+
+            GUI.Box(new Rect(0, scr.y * 6,Screen.width, scr.y*3), text);
+            if(!(index >= dialogue.Length-1 || index == option))
             {
                 //reads the different lines in order
                 if (GUI.Button(new Rect(scr.x*14,scr.y*8,scr.x*2,scr.y),"Next"))
@@ -27,7 +30,7 @@ public class DialogueOption : MonoBehaviour
                 //makes you end the dialogue early
                 if (GUI.Button(new Rect(scr.x * 14, scr.y * 8, scr.x * 2, scr.y), "Fuck Off"))
                 {
-                    index = text.Length - 1;
+                    index = dialogue.Length - 1;
                 }
                 //continues the dialogue in order
                 if (GUI.Button(new Rect(scr.x * 10, scr.y * 8, scr.x * 2, scr.y), "Next"))
