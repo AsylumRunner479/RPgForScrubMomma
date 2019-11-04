@@ -54,7 +54,10 @@ public class GameManager : MonoBehaviour
     }
     public void QuitGame()
     {
-        //SceneManager.Application.Quit();
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
+        Application.Quit();
     }
     public void OpenSettings()
     {
