@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 public class Customisation : MonoBehaviour
 {
@@ -29,7 +30,7 @@ public class Customisation : MonoBehaviour
 	public int index;
 	public Vector2 scr;
 	public int selectedIndex, points;
-    public PlayerData (Player player)
+    public PlayerData(Customisation player)
     {
         skinIndex = player.skinIndex;
         eyesIndex = player.eyesIndex;
@@ -37,16 +38,19 @@ public class Customisation : MonoBehaviour
         hairIndex = player.hairIndex;
         clothesIndex = player.clothesIndex;
         mouthIndex = player.mouthIndex;
-        stats = new float [6];
+        stats = new float[6];
         stats[0] = player.playerStats[0].statValue;
         stats[1] = player.playerStats[1].statValue;
         stats[2] = player.playerStats[2].statValue;
         stats[3] = player.playerStats[3].statValue;
         stats[4] = player.playerStats[4].statValue;
         stats[5] = player.playerStats[5].statValue;
-        class = player.charClass;
+        className = player.className;
+        points = player.points;
+        character = player.characterName;
+        
     }
-	void Start()
+    void Start()
     {
 		points = 10;
         for	(int i = 0; i < mouthMax; i++)
@@ -272,8 +276,9 @@ public class Customisation : MonoBehaviour
 			SetTexture("Mouth",3);
 		}
 		i++;
-		
-	}
+        
+
+    }
 	
 	void DisplayStats()
 	{
@@ -321,8 +326,34 @@ public class Customisation : MonoBehaviour
 				}
 			}
 		}
-	#endregion
-	}
+        if (GUI.Button(new Rect(scr.x * 0.75f, scr.y + i * (0.5f * scr.y), scr.x, scr.y * 0.5f), "Save"))
+        {
+            PlayerSaveToBinary.SavePlayerData(this);
+        }
+        i++;
+        if (GUI.Button(new Rect(scr.x * 0.75f, scr.y + i * (0.5f * scr.y), scr.x, scr.y * 0.5f), "Load"))
+        {
+            PlayerData data = PlayerSaveToBinary.LoadData();
+            skinIndex = data.skinIndex;
+            eyesIndex = data.eyesIndex;
+            armourIndex = data.armourIndex;
+            hairIndex = data.hairIndex;
+            clothesIndex = data.clothesIndex;
+            mouthIndex = data.mouthIndex;
+            stats = new float[6];
+            stats[0] = data.playerStats[0].statValue;
+            stats[1] = data.playerStats[1].statValue;
+            stats[2] = data.playerStats[2].statValue;
+            stats[3] = data.playerStats[3].statValue;
+            stats[4] = data.playerStats[4].statValue;
+            stats[5] = data.playerStats[5].statValue;
+            className = data.className;
+            points = data.points;
+            character = player.characterName;
+        }
+        i++;
+        #endregion
+    }
 	void ChooseClass(int className)
 	{
 		if(className < 0)
