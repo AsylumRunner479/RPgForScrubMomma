@@ -29,6 +29,23 @@ public class Customisation : MonoBehaviour
 	public int index;
 	public Vector2 scr;
 	public int selectedIndex, points;
+    public PlayerData (Player player)
+    {
+        skinIndex = player.skinIndex;
+        eyesIndex = player.eyesIndex;
+        armourIndex = player.armourIndex;
+        hairIndex = player.hairIndex;
+        clothesIndex = player.clothesIndex;
+        mouthIndex = player.mouthIndex;
+        stats = new float [6];
+        stats[0] = player.playerStats[0].statValue;
+        stats[1] = player.playerStats[1].statValue;
+        stats[2] = player.playerStats[2].statValue;
+        stats[3] = player.playerStats[3].statValue;
+        stats[4] = player.playerStats[4].statValue;
+        stats[5] = player.playerStats[5].statValue;
+        class = player.charClass;
+    }
 	void Start()
     {
 		points = 10;
