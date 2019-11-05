@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PlayerSaveToBinary 
 {
-   public static void SavePlayerData(PlayerHandler player)
+    
+    public static void SavePlayerData(PlayerHandler player)
    {
        //Reference a Binary Formatter
        BinaryFormatter formatter = new BinaryFormatter();
