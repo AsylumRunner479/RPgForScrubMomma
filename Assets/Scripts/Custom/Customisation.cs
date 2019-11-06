@@ -315,14 +315,14 @@ public class Customisation : MonoBehaviour
         i++;
         if (GUI.Button(new Rect(scr.x * 0.75f, scr.y + i * (0.5f * scr.y), scr.x, scr.y * 0.5f), "Load"))
         {
-            PlayerData data = PlayerSaveToBinary.LoadData();
+            /*PlayerData data = PlayerSaveToBinary.LoadData();
             skinIndex = data.skinIndex;
             eyesIndex = data.eyesIndex;
             armourIndex = data.armourIndex;
             hairIndex = data.hairIndex;
             clothesIndex = data.clothesIndex;
             mouthIndex = data.mouthIndex;
-            stats = new float[6];
+            stats = new int[6];
             stats[0] = data.playerStats[0].statValue;
             stats[1] = data.playerStats[1].statValue;
             stats[2] = data.playerStats[2].statValue;
@@ -331,18 +331,18 @@ public class Customisation : MonoBehaviour
             stats[5] = data.playerStats[5].statValue;
             className = data.className;
             points = data.points;
-            character = player.characterName;
+            character = player.characterName;*/
         }
         i++;
         #endregion
     }
-	void ChooseClass(int className)
+	void ChooseClass(int classID)
 	{
-		if(className < 0)
+		if(classID < 0)
 		{
 			
 		}
-	switch(className)
+	switch(classID)
 	{
 		case 0:
 		playerStats[0].statValue = 8;
@@ -382,12 +382,12 @@ public class Customisation : MonoBehaviour
 		break;
 	}
 	}
-	
-	public enum CharacterClass
-	{
-		Fighter,
-		Mage,
-		Thief,
-		Normy
-	}
+
 }
+public enum CharacterClass
+    {
+        Fighter,
+        Mage,
+        Thief,
+        Normy
+    }
