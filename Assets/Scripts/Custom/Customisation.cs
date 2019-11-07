@@ -12,7 +12,7 @@ public class Customisation : MonoBehaviour
 	public List<Texture2D> clothes = new List<Texture2D>();
 	public List<Texture2D> armour = new List<Texture2D>();
 	public List<Texture2D> eyes = new List<Texture2D>();
-	public int skinIndex, eyesIndex, armourIndex, hairIndex, clothesIndex, mouthIndex;
+	public static int skinIndex, eyesIndex, armourIndex, hairIndex, clothesIndex, mouthIndex;
 	public int skinMax, eyesMax, armourMax, hairMax, clothesMax, mouthMax;
 	public string characterName = "Adventurer";
   

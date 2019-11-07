@@ -20,7 +20,7 @@ public class PlayerHandler : MonoBehaviour
     public static float curStamina;
     public float curMana;
     public float Armour;
-    public PlayerStats[] stats;
+    //public PlayerStats[] stats;
     [Header("Value Variables")]
     public Slider healthBar;
     public Slider staminaBar;
@@ -36,6 +36,18 @@ public class PlayerHandler : MonoBehaviour
     bool damaged;
     bool canHeal;
     float healTimer;
+    public int selectedIndex, points;
+    public struct Stats
+    {
+        public string statName;
+        public int statValue;
+        public int tempStat;
+    };
+    public Stats[] playerStats = new Stats[6];
+    public int skinIndex, eyesIndex, armourIndex, hairIndex, clothesIndex, mouthIndex;
+    public int[] stats = new int[6];
+    public int className;
+    public string character;
     public Text text;
     [Header("Check Point")]
     public Transform curCheckPoint;
@@ -47,6 +59,13 @@ public class PlayerHandler : MonoBehaviour
     {
         playerAudio = GetComponent<AudioSource>();
         healRate = 0;
+        skinIndex = Customisation.skinIndex;
+        eyesIndex = Customisation.eyesIndex;
+        hairIndex = Customisation.hairIndex;
+        armourIndex = Customisation.armourIndex;
+        clothesIndex = Customisation.clothesIndex;
+        mouthIndex = Customisation.mouthIndex;
+
     }
 
     // Update is called once per frame
@@ -178,7 +197,7 @@ public class PlayerHandler : MonoBehaviour
     {
         if (curHealth > 0 && curHealth <= maxHealth && canHeal)
         {
-            curHealth += Time.deltaTime * (healRate + stats[2].value);
+            curHealth += Time.deltaTime * (healRate + stats[2].statValue);
         }
     }
 }
