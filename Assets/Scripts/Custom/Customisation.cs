@@ -25,12 +25,12 @@ public class Customisation : MonoBehaviour
 		public int statValue;
 		public int tempStat;
 	};
-	public Stats[] playerStats = new Stats[6];
+	public static Stats[] playerStats = new Stats[6];
 	public CharacterClass charClass;
 	public string[] text;
 	public int index;
 	public Vector2 scr;
-	public int selectedIndex, points;
+	public static int selectedIndex, points;
   
     void Start()
     {

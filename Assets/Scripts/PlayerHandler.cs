@@ -65,6 +65,9 @@ public class PlayerHandler : MonoBehaviour
         armourIndex = Customisation.armourIndex;
         clothesIndex = Customisation.clothesIndex;
         mouthIndex = Customisation.mouthIndex;
+       
+       selectedIndex = Customisation.selectedIndex;
+        points = Customisation.points;
 
     }
 
