@@ -13,6 +13,7 @@ public class PlayerDataToSave
     public float posx, posy, posz;
     public float rotx, roty, rotz, rotw;
     public int selectedIndex, points;
+    public static int saveSlot;
     public struct Stats
     {
         public string statName;
@@ -28,7 +29,25 @@ public class PlayerDataToSave
     {
         playerName = player.name;
         level = 0;
-        checkPoint = player.curCheckPoint.name;
+        if (player.curCheckPoint != null)
+        {
+            checkPoint = player.curCheckPoint.name;
+            posx = player.transform.position.x;
+            posy = player.transform.position.y;
+            posz = player.transform.position.z;
+
+            rotx = player.transform.rotation.x;
+            roty = player.transform.rotation.y;
+            rotz = player.transform.rotation.z;
+            rotw = player.transform.rotation.w;
+        }
+        else
+        {
+            checkPoint = player.firstCheckPoint;
+            posx = 0;
+            posy = 0;
+            posz = 0;
+        }
         maxHealth = player.maxHealth;
         maxMana = player.maxMana;
         maxStamina = player.maxStamina;
@@ -37,14 +56,7 @@ public class PlayerDataToSave
         curMana = player.curMana;
         curStamina = PlayerHandler.curStamina;
 
-        posx = player.transform.position.x;
-        posy = player.transform.position.y;
-        posz = player.transform.position.z;
-
-        rotx = player.transform.rotation.x;
-        roty = player.transform.rotation.y;
-        rotz = player.transform.rotation.z;
-        rotw = player.transform.rotation.w;
+       
         skinIndex = player.skinIndex;
         eyesIndex = player.eyesIndex;
         armourIndex = player.armourIndex;
@@ -57,9 +69,9 @@ public class PlayerDataToSave
         stats[3] = player.playerStats[3].statValue;
         stats[4] = player.playerStats[4].statValue;
         stats[5] = player.playerStats[5].statValue;
-        className = (int)player.charClass;
+        classIndex = (int)player.characterClass;
         //points = player.points;
-        character = player.characterName;
+        character = player.character;
         // return (player);
     }
     public void Save()

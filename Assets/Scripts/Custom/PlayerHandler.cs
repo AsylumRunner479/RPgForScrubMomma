@@ -36,6 +36,8 @@ public class PlayerHandler : MonoBehaviour
     bool damaged;
     bool canHeal;
     float healTimer;
+    [Header("Custom")]
+    public bool custom;
     public int selectedIndex, points;
     public struct Stats
     {
@@ -46,12 +48,13 @@ public class PlayerHandler : MonoBehaviour
     public Stats[] playerStats = new Stats[6];
     public int skinIndex, eyesIndex, armourIndex, hairIndex, clothesIndex, mouthIndex;
     public int[] stats = new int[6];
-    public int className;
+    public int characterClass;
     public string character;
+    public string characterName;
     public Text text;
     [Header("Check Point")]
     public Transform curCheckPoint;
-
+    public string firstCheckPoint = "First CheckPoint";
     [Header("Save")]
     public PlayerSaveAndLoad saveAndLoad;
     // Start is called before the first frame update
@@ -65,10 +68,10 @@ public class PlayerHandler : MonoBehaviour
         armourIndex = Customisation.armourIndex;
         clothesIndex = Customisation.clothesIndex;
         mouthIndex = Customisation.mouthIndex;
-       
-       selectedIndex = Customisation.selectedIndex;
+        characterName = Customisation.characterName;
+        characterClass = Customisation.selectedIndex;
         points = Customisation.points;
-
+         
     }
 
     // Update is called once per frame

@@ -14,19 +14,19 @@ public class Customisation : MonoBehaviour
 	public List<Texture2D> eyes = new List<Texture2D>();
 	public static int skinIndex, eyesIndex, armourIndex, hairIndex, clothesIndex, mouthIndex;
 	public int skinMax, eyesMax, armourMax, hairMax, clothesMax, mouthMax;
-	public string characterName = "Adventurer";
+	public static string characterName = "Adventurer";
   
 	[System.Serializable]
 	
     // Start is called before the first frame update
-    public struct Stats
+    public struct PlayerStats
 	{
 		public string statName;
 		public int statValue;
 		public int tempStat;
 	};
-	public static Stats[] playerStats = new Stats[6];
-	public CharacterClass charClass;
+	public static PlayerStats[] playerStats = new Stats[6];
+	public static  CharacterClass charClass;
 	public string[] text;
 	public int index;
 	public Vector2 scr;
@@ -310,7 +310,7 @@ public class Customisation : MonoBehaviour
 		}
         if (GUI.Button(new Rect(scr.x * 0.75f, scr.y + i * (0.5f * scr.y), scr.x, scr.y * 0.5f), "Save"))
         {
-            PlayerSaveToBinary.SavePlayerData(this);
+            PlayerDataToSave.Save();
         }
         i++;
         if (GUI.Button(new Rect(scr.x * 0.75f, scr.y + i * (0.5f * scr.y), scr.x, scr.y * 0.5f), "Load"))
