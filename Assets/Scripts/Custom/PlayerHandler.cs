@@ -57,6 +57,7 @@ public class PlayerHandler : MonoBehaviour
     public string firstCheckPoint = "First CheckPoint";
     [Header("Save")]
     public PlayerSaveAndLoad saveAndLoad;
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -69,7 +70,7 @@ public class PlayerHandler : MonoBehaviour
         clothesIndex = Customisation.clothesIndex;
         mouthIndex = Customisation.mouthIndex;
         characterName = Customisation.characterName;
-        characterClass = Customisation.selectedIndex;
+        characterClass = Customisation.charClass;
         points = Customisation.points;
          
     }
