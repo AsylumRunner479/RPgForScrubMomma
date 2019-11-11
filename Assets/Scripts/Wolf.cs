@@ -4,21 +4,24 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 
-public class Wolf : EnemyHandler
+namespace RPG.Player
 {
-    [Space(5), Header("Wolf Stats")]
-    public float curStamina;
-    public float maxStamina;
-    // Start is called before the first frame update
-    
-    void Start()
+    public class Wolf : EnemyAI
     {
-        
-    }
+        [Space(5), Header("Wolf Stats")]
+        public float curStamina;
+        public float maxStamina;
+        // Start is called before the first frame update
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        void Start()
+        {
+
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+
+        }
     }
 }

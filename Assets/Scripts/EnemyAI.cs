@@ -4,99 +4,91 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 
-public class EnemyAI : MonoBehaviour
+namespace RPG.Player
 {
-    public enum AIState
+    public class EnemyAI : MonoBehaviour
     {
+        //desiginates who the player is
+        public Transform target;
+        public float curHealth, maxHealth, moveSpeed, attackRange, attackSpeed, noiseRange, sense;
+        public NavMeshAgent agent;
 
-    }
-    // gives a bunch of stats for the enemy
-    [Header("Base Stats")]
-    public AIState state;
-    public float curHealth, maxHealth, moveSpeed, attackRange, attackSpeed, sightRange;
-    //allows you to desiginate the prefab
-    public Transform waypointParent;
-    private Transform[] points;
-    public float waypointDistance;
-    public float speed = 3f;
-    public int currentWayPoint = 1;
-    private NavMeshAgent agent;
-    public GameObject healthCanvas;
-    public Image healthBar;
-    
-    // Start is called before the first frame update
-    private void Start()
-    {
-        //makes the enemy patrol at the start
-        points = waypointParent.GetComponentsInChildren<Transform>();
-        agent = GetComponent<NavMeshAgent>();
-        //target = GameObject.FindGameObjectWithTag("Player").transform;
-        Patrol();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        Transform currentPoint = points[currentWayPoint];
-
-        
-        
-    }
-    //this make ths agent move from one waypoint to another
-    public void Patrol()
-    {
-        if (points.Length == 0)
-            return;
-
-        // Set the agent to go to the currently selected destination.
-        agent.destination = points[currentWayPoint].position;
-        //transform.position = Vector3.MoveTowards(transform.position, points[currentWayPoint].position, 1f);
-        if (transform.position.x == agent.destination.x && transform.position.z == agent.destination.z)
+        //gives distances for how far away the player will be when they switch behaviour
+        public float dist, sightDist;
+        public GameObject self;
+        //public GameObject playerShadow;
+        public float turnSpeed;
+        public float angle;
+        public Movement movement;
+        public Transform waypointParent;
+        private Transform[] points;
+        public float waypointDistance;
+        public int currentWayPoint = 1;
+        void Start()
         {
-            if(currentWayPoint < points.Length - 1)
+            //sets the conditions at the start
+            target = GameObject.FindGameObjectWithTag("Player").transform;
+            agent = self.GetComponent<NavMeshAgent>();
+            points = waypointParent.GetComponentsInChildren<Transform>();
+
+
+        }
+        void Update()
+        {
+            noiseRange = movement.noise * sense;
+            //kills the enemy when they lose all their health
+            if (curHealth <= 0)
             {
-                currentWayPoint++;
+
             }
-            else
+            //moves the enemy when the player is alive
+            if (PlayerHandler.isDead == false)
             {
-                //resets the waypoints to the begining
-                currentWayPoint = 0;
+                dist = Vector3.Distance(target.position, transform.position);
+
+                if (curHealth == 0)
+                {
+                    return;
+                }
+                //attacks the player if they get too close
+                else if (dist <= attackRange)
+                {
+                    Debug.Log("Attack");
+
+                }
+                //follows the player when they see him
+                else if (dist <= noiseRange)
+                {
+                    agent.destination = target.position;
+
+                }
+
+
+                else
+                {
+                    if (points.Length == 0)
+                        return;
+
+                    // Set the agent to go to the currently selected destination.
+                    agent.destination = points[currentWayPoint].position;
+                    //transform.position = Vector3.MoveTowards(transform.position, points[currentWayPoint].position, 1f);
+                    if (transform.position.x == agent.destination.x && transform.position.z == agent.destination.z)
+                    {
+                        if (currentWayPoint < points.Length - 1)
+                        {
+                            currentWayPoint++;
+                        }
+                        else
+                        {
+                            //resets the waypoints to the begining
+                            currentWayPoint = 0;
+                        }
+
+                    }
+
+                }
             }
-            
-        }     
+
+        }
     }
 }
-   // Choose the next point in the array as the destination,
-        // cycling to the start if necessary.
-      //  currentWayPoint = (currentWayPoint + 1) % points.Length;
-        /*/if (points != null)
-        {
-            Gizmos.color = Color.red;
-            for (int i = 1; i < points.Length - 1; i++)
-            {
-                Transform pointA = points[i];
-                Transform pointB = points[i + 1];
-                Gizmos.DrawLine(pointA.position, pointB.position);
-
-            }
-            for (int i = 1; i < points.Length; i++)
-            {
-                Gizmos.DrawSphere(points[i].position, waypointDistance);
-            }
-        }
-        //Transform currentPoint = points[currentWaypoint];
-        // Move towards current waypoint
-        transform.position = Vector3.MoveTowards(transform.position, currentPoint.position, 1f);
-        // Check if distance between waypoint is close
-        float distance = Vector3.Distance(transform.position, currentPoint.position);
-        //if (distance < waypointDistance)
-        //{
-          //  currentWaypoint++;
-        //}
-        Vector3 direction = agent.path.corners[1] - transform.position;
-        direction.Normalize();
-        direction.x = Mathf.Round(direction.x);
-        direction.y = Mathf.Round(direction.y);
-        direction.z = Mathf.Round(direction.z);
-        agent.Move(direction * 1f);
-        /*/

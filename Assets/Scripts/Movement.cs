@@ -9,7 +9,7 @@ namespace RPG.Player
     {
         [Header("Speed Vars")]
         //value Variables
-        public float moveSpeed;
+        public float moveSpeed, noise;
         public float walkSpeed, runSpeed, crouchSpeed, jumpSpeed;
         private float _gravity = 20;
         //Struct - Contains Multiple Variables (eg...3 floats)
@@ -21,7 +21,7 @@ namespace RPG.Player
         private void Start()
         {
             _charC = GetComponent<CharacterController>();
-
+            noise = 6f;
         }
         private void Update()
         {
@@ -35,6 +35,7 @@ namespace RPG.Player
                 //set speed
                 if (Input.GetButton("Crouch"))
                 {
+                    noise = 0f;
                     moveSpeed = crouchSpeed;
                     if (PlayerHandler.curStamina <= player.maxStamina)
                     {
@@ -43,12 +44,14 @@ namespace RPG.Player
                 }
                 else if (Input.GetButton("Sprint") && PlayerHandler.curStamina > 1)
                 {
+                    noise = 12f;
                     moveSpeed = runSpeed;
                     PlayerHandler.curStamina -= 2*Time.deltaTime;
                 }
                 
                 else
                 {
+                    noise = 6f;
                     moveSpeed = walkSpeed;
                     if (PlayerHandler.curStamina <= player.maxStamina)
                     {
@@ -59,6 +62,7 @@ namespace RPG.Player
                 _moveDir = transform.TransformDirection(new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) * moveSpeed);
                 if (Input.GetButton("Jump"))
                 {
+                    noise = 18f;
                     _moveDir.y = jumpSpeed;
                 }
             }
