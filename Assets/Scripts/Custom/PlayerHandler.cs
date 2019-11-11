@@ -72,7 +72,10 @@ public class PlayerHandler : MonoBehaviour
         characterName = Customisation.characterName;
         characterClass = Customisation.charClass;
         points = Customisation.points;
-         
+        for (int i = 0; i < Customisation.playerStats.Length; i++)
+        {
+            Customisation.player.stats[i].value = (playerStats[i].statValue + playerStats[i].tempStat);
+        }
     }
 
     // Update is called once per frame

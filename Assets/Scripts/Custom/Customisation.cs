@@ -174,6 +174,10 @@ public class Customisation : MonoBehaviour
 		DisplayCustom();
 		DisplayStats();
 	}
+    public void MinusSkin()
+    {
+        SetTexture("Skin", -1);
+    }
 	void DisplayCustom()
 	{
 		

@@ -16,7 +16,7 @@ public class PlayerData
     public int[] stats = new int[6];
     public int className;
     public string character;
-    public PlayerData(Customisation player)
+    public PlayerData(PlayerHandler player)
     {
         skinIndex = player.skinIndex;
         eyesIndex = player.eyesIndex;
@@ -30,8 +30,8 @@ public class PlayerData
         stats[3] = player.playerStats[3].statValue;
         stats[4] = player.playerStats[4].statValue;
         stats[5] = player.playerStats[5].statValue;
-        className = (int)player.charClass;
-        //points = player.points;
+        className = player.charClass;
+        points = player.points;
         character = player.characterName;
        // return (player);
     }
