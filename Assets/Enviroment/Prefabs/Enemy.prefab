@@ -217,6 +217,38 @@ Transform:
   m_Father: {fileID: 81352276226853360}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &648979706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6735624554376125891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1d42413b90f4004cb73035c237a4e21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  curHealth: 10
+  maxHealth: 10
+  moveSpeed: 10
+  attackRange: 10
+  attackSpeed: 10
+  noiseRange: 10
+  sense: 1
+  agent: {fileID: 6034575465662196907}
+  dist: 10
+  sightDist: 10
+  self: {fileID: 6735624554376125891}
+  turnSpeed: 10
+  angle: 10
+  movement: {fileID: 0}
+  waypointParent: {fileID: 6034575466124089313}
+  waypointDistance: 10
+  currentWayPoint: 1
+  curStamina: 10
+  maxStamina: 10
 --- !u!1001 &6034575464212741152
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -284,16 +316,42 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6279965897932272201, guid: 4ee84f242df9e46488dd3203f3dc7734,
-        type: 3}
-      propertyPath: waypointParent
+    - target: {fileID: 124115500, guid: 4ee84f242df9e46488dd3203f3dc7734, type: 3}
+      propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 6034575466124089313}
-    m_RemovedComponents: []
+      objectReference: {fileID: 21300000, guid: 9d16d570796e4214784f19a3166127da,
+        type: 3}
+    - target: {fileID: 380735424, guid: 4ee84f242df9e46488dd3203f3dc7734, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 380735424, guid: 4ee84f242df9e46488dd3203f3dc7734, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 380735424, guid: 4ee84f242df9e46488dd3203f3dc7734, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 256debcfb81e95e48b059f3ef8846727,
+        type: 3}
+    m_RemovedComponents:
+    - {fileID: 6279965897932272201, guid: 4ee84f242df9e46488dd3203f3dc7734, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 4ee84f242df9e46488dd3203f3dc7734, type: 3}
+--- !u!1 &6735624554376125891 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1064715047836377571, guid: 4ee84f242df9e46488dd3203f3dc7734,
+    type: 3}
+  m_PrefabInstance: {fileID: 6034575464212741152}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6735624554376020451 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1064715047836286403, guid: 4ee84f242df9e46488dd3203f3dc7734,
+    type: 3}
+  m_PrefabInstance: {fileID: 6034575464212741152}
+  m_PrefabAsset: {fileID: 0}
+--- !u!195 &6034575465662196907 stripped
+NavMeshAgent:
+  m_CorrespondingSourceObject: {fileID: 1537544331, guid: 4ee84f242df9e46488dd3203f3dc7734,
     type: 3}
   m_PrefabInstance: {fileID: 6034575464212741152}
   m_PrefabAsset: {fileID: 0}

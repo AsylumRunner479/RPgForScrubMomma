@@ -4,7 +4,7 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerDataToSave 
 {
-    //Data...Get from Game
+    //Data....Get from Game
     public string playerName;
     public int level;
     public string checkPoint;
@@ -12,22 +12,14 @@ public class PlayerDataToSave
     public float curHealth, curMana, curStamina;
     public float posx, posy, posz;
     public float rotx, roty, rotz, rotw;
-    public int selectedIndex, points;
+
     public static int saveSlot;
-    public struct Stats
-    {
-        public string statName;
-        public int statValue;
-        public int tempStat;
-    };
-    public Stats[] playerStats = new Stats[6];
-    public int skinIndex, eyesIndex, armourIndex, hairIndex, clothesIndex, mouthIndex;
     public int[] stats = new int[6];
-    public int className;
-    public string character;
+    public int classIndex;
+    public int skinIndex, eyesIndex, mouthIndex, hairIndex, clothesIndex, armourIndex;
     public PlayerDataToSave(PlayerHandler player)
     {
-        playerName = player.name;
+        playerName = player.characterName;
         level = 0;
         if (player.curCheckPoint != null)
         {
@@ -43,7 +35,7 @@ public class PlayerDataToSave
         }
         else
         {
-            checkPoint = player.firstCheckPoint;
+            checkPoint = player.firstCheckPointName;
             posx = 0;
             posy = 0;
             posz = 0;
@@ -56,27 +48,19 @@ public class PlayerDataToSave
         curMana = player.curMana;
         curStamina = PlayerHandler.curStamina;
 
-       
+        for (int i = 0; i < 6; i++)
+        {
+            stats[i] = player.stats[i].value;
+        }
+
         skinIndex = player.skinIndex;
-        eyesIndex = player.eyesIndex;
-        armourIndex = player.armourIndex;
         hairIndex = player.hairIndex;
-        clothesIndex = player.clothesIndex;
         mouthIndex = player.mouthIndex;
-        stats[0] = player.playerStats[0].statValue;
-        stats[1] = player.playerStats[1].statValue;
-        stats[2] = player.playerStats[2].statValue;
-        stats[3] = player.playerStats[3].statValue;
-        stats[4] = player.playerStats[4].statValue;
-        stats[5] = player.playerStats[5].statValue;
+        eyesIndex = player.eyesIndex;
+        clothesIndex = player.clothesIndex;
+        armourIndex = player.armourIndex;
+
         classIndex = (int)player.characterClass;
-        //points = player.points;
-        character = player.character;
-        // return (player);
-    }
-    public void Save()
-    {
-        PlayerSaveToBinary.SavePlayerData(this);
     }
 
 }

@@ -37,7 +37,7 @@ namespace RPG.Player
                 {
                     noise = 0f;
                     moveSpeed = crouchSpeed;
-                    if (PlayerHandler.curStamina <= player.maxStamina)
+                    if (PlayerHandler.curStamina <= player.maxStamina && PlayerHandler.curStamina != player.maxStamina)
                     {
                         PlayerHandler.curStamina += Time.deltaTime;
                     }

@@ -5347,6 +5347,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 0
+  noise: 0
   walkSpeed: 6
   runSpeed: 12
   crouchSpeed: 3
@@ -5476,13 +5477,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37c87a7f6f55fe94b8e3611b42acb297, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
-  maxStamina: 5
-  maxMana: 5
   curHealth: 5
-  healRate: 1
   curMana: 5
-  Armour: 0
+  maxHealth: 100
+  maxMana: 5
+  maxStamina: 5
+  healRate: 1
   stats:
   - name: Strength
     value: 1
@@ -5497,17 +5497,26 @@ MonoBehaviour:
   - name: Charisma
     value: 1
   healthBar: {fileID: 871471116}
-  staminaBar: {fileID: 284792372}
   manaBar: {fileID: 213333231}
+  staminaBar: {fileID: 284792372}
   damageImage: {fileID: 2063344988}
   deathImage: {fileID: 1826338217}
+  text: {fileID: 241901531}
   deathClip: {fileID: 8300000, guid: 459ccb39685e51348b83b9f576e2f95a, type: 3}
   flashSpeed: 5
-  FlashColor: {r: 1, g: 0, b: 0, a: 0.2}
-  playerAudio: {fileID: 140815778}
-  text: {fileID: 241901531}
+  flashColour: {r: 1, g: 0, b: 0, a: 0.2}
   curCheckPoint: {fileID: 662668868}
   saveAndLoad: {fileID: 0}
+  custom: 0
+  skinIndex: 0
+  eyesIndex: 0
+  mouthIndex: 0
+  hairIndex: 0
+  clothesIndex: 0
+  armourIndex: 0
+  characterClass: 0
+  characterName: 
+  firstCheckPointName: First CheckPoint
 --- !u!114 &140815780
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6474,7 +6483,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &241023677
 RectTransform:
   m_ObjectHideFlags: 0
@@ -16118,43 +16127,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 331566388422495849, guid: acd755957c9176a4f93ad464c2b6548d,
-        type: 3}
+    - target: {fileID: 648979706, guid: acd755957c9176a4f93ad464c2b6548d, type: 3}
       propertyPath: target
       value: 
       objectReference: {fileID: 140815773}
-    - target: {fileID: 331566388422495849, guid: acd755957c9176a4f93ad464c2b6548d,
-        type: 3}
-      propertyPath: curHealth
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 6034575464265541132, guid: acd755957c9176a4f93ad464c2b6548d,
-        type: 3}
-      propertyPath: m_Sprite
+    - target: {fileID: 648979706, guid: acd755957c9176a4f93ad464c2b6548d, type: 3}
+      propertyPath: movement
       value: 
-      objectReference: {fileID: 21300000, guid: 9d16d570796e4214784f19a3166127da,
-        type: 3}
-    - target: {fileID: 6034575464503292896, guid: acd755957c9176a4f93ad464c2b6548d,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 256debcfb81e95e48b059f3ef8846727,
-        type: 3}
-    - target: {fileID: 6034575464503292896, guid: acd755957c9176a4f93ad464c2b6548d,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6034575464503292896, guid: acd755957c9176a4f93ad464c2b6548d,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6034575464503292896, guid: acd755957c9176a4f93ad464c2b6548d,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 331566388422495849, guid: acd755957c9176a4f93ad464c2b6548d, type: 3}
+      objectReference: {fileID: 140815775}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: acd755957c9176a4f93ad464c2b6548d, type: 3}
