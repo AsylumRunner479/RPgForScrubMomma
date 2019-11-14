@@ -26,7 +26,7 @@ namespace RPG.Player
         private void Update()
         {
             Move();
-            PlayerHandler.curStamina += Time.deltaTime;
+            player.curStamina += Time.deltaTime;
         }
         private void Move()
         {
@@ -36,23 +36,23 @@ namespace RPG.Player
                 if (Input.GetButton("Crouch"))
                 {
                     moveSpeed = crouchSpeed;
-                    if (PlayerHandler.curStamina <= player.maxStamina)
+                    if (player.curStamina <= player.maxStamina)
                     {
-                        PlayerHandler.curStamina += Time.deltaTime;
+                        player.curStamina += Time.deltaTime;
                     }
                 }
-                else if (Input.GetButton("Sprint") && PlayerHandler.curStamina > 1)
+                else if (Input.GetButton("Sprint") && player.curStamina > 1)
                 {
                     moveSpeed = runSpeed;
-                    PlayerHandler.curStamina -= 2*Time.deltaTime;
+                    player.curStamina -= 2*Time.deltaTime;
                 }
                 
                 else
                 {
                     moveSpeed = walkSpeed;
-                    if (PlayerHandler.curStamina <= player.maxStamina)
+                    if (player.curStamina <= player.maxStamina)
                     {
-                        PlayerHandler.curStamina += Time.deltaTime;
+                        player.curStamina += Time.deltaTime;
                     }
                 }
                 

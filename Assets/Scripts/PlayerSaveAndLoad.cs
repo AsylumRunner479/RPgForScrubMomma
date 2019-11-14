@@ -31,7 +31,7 @@ public class PlayerSaveAndLoad : MonoBehaviour
 
         player.curHealth = player.maxHealth;
         player.curMana = player.maxMana;
-        PlayerHandler.curStamina = player.maxStamina;
+        player.curStamina = player.maxStamina;
 
         player.transform.position = new Vector3(1, 1, 1);
         player.transform.rotation = new Quaternion(0, 0, 0, 0);
@@ -53,9 +53,9 @@ public class PlayerSaveAndLoad : MonoBehaviour
 
         player.curHealth = data.curHealth;
         player.curMana = data.curMana;
-        PlayerHandler.curStamina = data.curStamina;
+        player.curStamina = data.curStamina;
 
-        player.transform.position = new Vector3(data.posx, data.posy, data.posz);
-        player.transform.rotation = new Quaternion(data.rotx, data.roty, data.rotz, data.rotw);
+        player.transform.position = new Vector3(data.posX, data.posY, data.posZ);
+        player.transform.rotation = new Quaternion(data.rotX, data.rotY, data.rotZ, data.rotW);
     }
 }

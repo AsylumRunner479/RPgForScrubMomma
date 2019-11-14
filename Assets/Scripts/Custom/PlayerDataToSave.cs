@@ -1,70 +1,74 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-[System.Serializable]
-public class PlayerDataToSave 
+﻿[System.Serializable]
+/*
+ Serialization is the automatic process of transforming data 
+ structures or object states into a format that Unity can store and reconstruct later.
+
+Serialization is the process of converting an object 
+into a stream of bytes to store the object or transmit it to memory,
+a database, or a file. Its main purpose is to save the state of an
+object in order to be able to recreate it when needed. 
+The reverse process is called deserialization
+
+The serialization system is written in C++
+*/
+public class PlayerDataToSave
 {
-    //Data...Get from Game
+    //Data....Get from Game
     public string playerName;
     public int level;
     public string checkPoint;
     public float maxHealth, maxMana, maxStamina;
     public float curHealth, curMana, curStamina;
-    public float posx, posy, posz;
-    public float rotx, roty, rotz, rotw;
-    public int selectedIndex, points;
-    public struct Stats
-    {
-        public string statName;
-        public int statValue;
-        public int tempStat;
-    };
-    public Stats[] playerStats = new Stats[6];
-    public int skinIndex, eyesIndex, armourIndex, hairIndex, clothesIndex, mouthIndex;
+    public float posX, posY, posZ;
+    public float rotX, rotY, rotZ, rotW;
+
+    public static int saveSlot;
     public int[] stats = new int[6];
-    public int className;
-    public string character;
+    public int classIndex;
+    public int skinIndex, eyesIndex, mouthIndex, hairIndex, clothesIndex, armourIndex;
     public PlayerDataToSave(PlayerHandler player)
     {
-        playerName = player.name;
+        playerName = player.characterName;
         level = 0;
-        checkPoint = player.curCheckPoint.name;
+        if (player.curCheckPoint != null)
+        {
+            checkPoint = player.curCheckPoint.name;
+            posX = player.transform.position.x;
+            posY = player.transform.position.y;
+            posZ = player.transform.position.z;
+
+            rotX = player.transform.rotation.x;
+            rotY = player.transform.rotation.y;
+            rotZ = player.transform.rotation.z;
+            rotW = player.transform.rotation.w;
+        }
+        else
+        {
+            checkPoint = player.firstCheckPointName;
+            posX = 0;
+            posY = 0;
+            posZ = 0;
+        }
         maxHealth = player.maxHealth;
         maxMana = player.maxMana;
         maxStamina = player.maxStamina;
 
         curHealth = player.curHealth;
         curMana = player.curMana;
-        curStamina = PlayerHandler.curStamina;
+        curStamina = player.curStamina;
 
-        posx = player.transform.position.x;
-        posy = player.transform.position.y;
-        posz = player.transform.position.z;
+        for (int i = 0; i < 6; i++)
+        {
+            stats[i] = player.stats[i].value;
+        }
 
-        rotx = player.transform.rotation.x;
-        roty = player.transform.rotation.y;
-        rotz = player.transform.rotation.z;
-        rotw = player.transform.rotation.w;
         skinIndex = player.skinIndex;
-        eyesIndex = player.eyesIndex;
-        armourIndex = player.armourIndex;
         hairIndex = player.hairIndex;
-        clothesIndex = player.clothesIndex;
         mouthIndex = player.mouthIndex;
-        stats[0] = player.playerStats[0].statValue;
-        stats[1] = player.playerStats[1].statValue;
-        stats[2] = player.playerStats[2].statValue;
-        stats[3] = player.playerStats[3].statValue;
-        stats[4] = player.playerStats[4].statValue;
-        stats[5] = player.playerStats[5].statValue;
-        className = (int)player.charClass;
-        //points = player.points;
-        character = player.characterName;
-        // return (player);
-    }
-    public void Save()
-    {
-        PlayerSaveToBinary.SavePlayerData(this);
-    }
+        eyesIndex = player.eyesIndex;
+        clothesIndex = player.clothesIndex;
+        armourIndex = player.armourIndex;
 
+        classIndex = (int)player.characterClass;
+    }
 }

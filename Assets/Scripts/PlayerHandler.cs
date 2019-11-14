@@ -11,143 +11,113 @@ public class PlayerHandler : MonoBehaviour
     {
         public string name;
         public int value;
-    }
+    };
+
     [Header("Value Variables")]
-    public float maxHealth;
-    public float maxStamina;
-    public float maxMana;
-    public float curHealth, healRate;
-    public static float curStamina;
-    public float curMana;
-    public float Armour;
-    //public PlayerStats[] stats;
+    public float curHealth;
+    public float curMana, curStamina, maxHealth, maxMana, maxStamina, healRate;
+    public PlayerStats[] stats;
     [Header("Value Variables")]
     public Slider healthBar;
-    public Slider staminaBar;
-    public Slider manaBar;
+    public Slider manaBar, staminaBar;
     [Header("Damage Effect Variables")]
     public Image damageImage;
     public Image deathImage;
+    public Text text;
     public AudioClip deathClip;
-    public float flashSpeed = 5.0f;
-    public Color FlashColor = new Color(1, 0, 0, 0.2f);
-    public AudioSource playerAudio;
-    public static bool isDead = false;
+    public float flashSpeed = 5;
+    public Color flashColour = new Color(1, 0, 0, 0.2f);
+    AudioSource playerAudio;
+    public static bool isDead;
     bool damaged;
     bool canHeal;
     float healTimer;
-    public int selectedIndex, points;
-    public struct Stats
-    {
-        public string statName;
-        public int statValue;
-        public int tempStat;
-    };
-    public Stats[] playerStats = new Stats[6];
-    public int skinIndex, eyesIndex, armourIndex, hairIndex, clothesIndex, mouthIndex;
-    public int[] stats = new int[6];
-    public int className;
-    public string character;
-    public Text text;
     [Header("Check Point")]
     public Transform curCheckPoint;
-
     [Header("Save")]
     public PlayerSaveAndLoad saveAndLoad;
-    // Start is called before the first frame update
+    [Header("Custom")]
+    public bool custom;
+    public int skinIndex, eyesIndex, mouthIndex, hairIndex, clothesIndex, armourIndex;
+    public CharacterClass characterClass;
+    public string characterName;
+    public string firstCheckPointName = "First CheckPoint";
     private void Start()
     {
         playerAudio = GetComponent<AudioSource>();
-        healRate = 0;
-        skinIndex = Customisation.skinIndex;
-        eyesIndex = Customisation.eyesIndex;
-        hairIndex = Customisation.hairIndex;
-        armourIndex = Customisation.armourIndex;
-        clothesIndex = Customisation.clothesIndex;
-        mouthIndex = Customisation.mouthIndex;
-
     }
-
-    // Update is called once per frame
     void Update()
     {
-        if (curHealth <= 0 && !isDead)
+        if (!custom)
         {
-            Death();
-        }
-        if (healthBar.value != Mathf.Clamp01(curHealth/maxHealth))
-        {
-            LoseHealth();
-        }
-        if (staminaBar.value != Mathf.Clamp01(curStamina / maxStamina))
-        {
-            LoseStamina();
-        }
-        if (manaBar.value != Mathf.Clamp01(curMana / maxMana))
-        {
-            LoseMana();
-        }
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            damaged = true;
-            curHealth -= 5;
-        }
-        
-        
-        if(damaged && !isDead)
-        {
-            damageImage.color = FlashColor;
-            damaged = false;
-        }
-        else
-        {
-            damageImage.color = Color.Lerp(damageImage.color, Color.clear, flashSpeed * Time.deltaTime);
-        }
-        if (!canHeal && curHealth < maxHealth && curHealth > 0)
-        {
-            healTimer += Time.deltaTime;
-            if (healTimer >= 5)
+            //Display Health
+            if (healthBar.value != Mathf.Clamp01(curHealth / maxHealth))
             {
-                canHeal = true;
+                curHealth = Mathf.Clamp(curHealth, 0, maxHealth);
+                healthBar.value = Mathf.Clamp01(curHealth / maxHealth);
+            }
+            if (manaBar.value != Mathf.Clamp01(curMana / maxMana))
+            {
+                curMana = Mathf.Clamp(curMana, 0, maxMana);
+                manaBar.value = Mathf.Clamp01(curMana / maxMana);
+            }
+            if (staminaBar.value != Mathf.Clamp01(curStamina / maxStamina))
+            {
+                curStamina = Mathf.Clamp(curStamina, 0, maxStamina);
+                staminaBar.value = Mathf.Clamp01(curStamina / maxStamina);
+            }
+            if (curHealth <= 0 && !isDead)
+            {
+                Death();
+            }
+            //#if UNITY_EDITOR
+            //Damage
+            //if (Input.GetKeyDown(KeyCode.X))
+            // {
+            // damaged = true;
+            // curHealth -= 5;
+            // }
+            //#endif
+
+            if (damaged && !isDead)
+            {
+                damageImage.color = flashColour;
+                damaged = false;
+            }
+            else
+            {
+                damageImage.color = Color.Lerp(damageImage.color, Color.clear, flashSpeed * Time.deltaTime);
+            }
+            if (!canHeal && curHealth < maxHealth && curHealth > 0)
+            {
+                healTimer += Time.deltaTime;
+                if (healTimer >= 5)
+                {
+                    canHeal = true;
+                }
             }
         }
     }
-    void LoseHealth()
-    {
-        curHealth = Mathf.Clamp(curHealth, 0, maxHealth);
-        healthBar.value = Mathf.Clamp01(curHealth / maxHealth);
-
-    }
-    void LoseStamina()
-    {
-        curStamina = Mathf.Clamp(curStamina, 0, maxStamina);
-        staminaBar.value = Mathf.Clamp01(curStamina / maxStamina);
-    }
-    void LoseMana()
-    {
-        curMana = Mathf.Clamp(curMana, 0, maxMana);
-        manaBar.value = Mathf.Clamp01(curMana / maxMana);
-    }
-    void Death()
-    {
-        
-        isDead = true;
-        text.text = "";
-        playerAudio.clip = deathClip;
-        playerAudio.Play();
-        deathImage.color = FlashColor;
-        deathImage.gameObject.GetComponent<Animator>().SetTrigger("IsDead");
-        Invoke("DeathText", 2f);
-        Invoke("ReviveText", 6f);
-        Invoke("Revive", 9f);
-    }
     private void LateUpdate()
     {
-        if (canHeal && curHealth < maxHealth && curHealth > 0)
+        if (curHealth < maxHealth && curHealth > 0 && canHeal)
         {
             HealOverTime();
         }
+    }
+    void Death()
+    {
+        //Set the death flag to this function isnt called again
+        isDead = true;
+        text.text = "";
 
+        //Set the AudioSource to play the death clip
+        playerAudio.clip = deathClip;
+        playerAudio.Play();
+        deathImage.gameObject.GetComponent<Animator>().SetTrigger("isDead");
+        Invoke("DeathText", 2f);
+        Invoke("ReviveText", 6f);
+        Invoke("Revive", 9f);
     }
     void Revive()
     {
@@ -155,27 +125,29 @@ public class PlayerHandler : MonoBehaviour
         isDead = false;
         curHealth = maxHealth;
         curMana = maxMana;
-        PlayerHandler.curStamina = maxStamina;
+        curStamina = maxStamina;
+
+        //more and rotate to spawn location
         this.transform.position = curCheckPoint.position;
         this.transform.rotation = curCheckPoint.rotation;
+
         deathImage.gameObject.GetComponent<Animator>().SetTrigger("Revive");
-        
     }
     void DeathText()
     {
-        text.text = "You've fallen in battle...";
+        text.text = "You've Fallen in Battle...";
     }
     void ReviveText()
     {
-        text.text = "But the Battle isn't over yet....";
+        text.text = "...But the Gods have decided it isn't your time...";
     }
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.CompareTag("CheckPoint"))
+        if (other.gameObject.CompareTag("CheckPoint"))
         {
             curCheckPoint = other.transform;
+            healRate = 5;
             saveAndLoad.Save();
-            healRate = 10;
         }
     }
     private void OnTriggerExit(Collider other)
@@ -188,16 +160,12 @@ public class PlayerHandler : MonoBehaviour
     public void DamagePlayer(float damage)
     {
         damaged = true;
-        curHealth -= (damage - Armour);
+        curHealth -= damage;
         canHeal = false;
         healTimer = 0;
     }
-
     public void HealOverTime()
     {
-        if (curHealth > 0 && curHealth <= maxHealth && canHeal)
-        {
-            curHealth += Time.deltaTime * (healRate + stats[2].statValue);
-        }
+        curHealth += Time.deltaTime * (healRate + stats[2].value);
     }
 }
