@@ -173,6 +173,73 @@ public class Customisation : MonoBehaviour
         }
 
     }
+    public void MinusSkin()
+    {
+        SetTexture("Skin", -1);
+    }
+    public void PlusSkin()
+    {
+        SetTexture("Skin", 1);
+    }
+    public void MinusEyes()
+    {
+        SetTexture("Eyes", -1);
+    }
+    public void PlusEyes()
+    {
+        SetTexture("Eyes", 1);
+    }
+    public void MinusMouth()
+    {
+        SetTexture("Mouth", -1);
+    }
+    public void PlusMouth()
+    {
+        SetTexture("Mouth", 1);
+    }
+    public void MinusHair()
+    {
+        SetTexture("Hair", -1);
+    }
+    public void PlusHair()
+    {
+        SetTexture("Hair", 1);
+    }
+    public void MinusClothes()
+    {
+        SetTexture("Clothes", -1);
+    }
+    public void PlusClothes()
+    {
+        SetTexture("Clothes", 1);
+    }
+    public void MinusArmour()
+    {
+        SetTexture("Armour", -1);
+    }
+    public void PlusArmour()
+    {
+        SetTexture("Armour", 1);
+    }
+    public void RandomChange()
+    {
+        SetTexture("Skin", Random.Range(0, skinMax - 1));
+        SetTexture("Eyes", Random.Range(0, eyesMax - 1));
+        SetTexture("Mouth", Random.Range(0, mouthMax - 1));
+        SetTexture("Hair", Random.Range(0, hairMax - 1));
+        SetTexture("Clothes", Random.Range(0, clothesMax - 1));
+        SetTexture("Armour", Random.Range(0, armourMax - 1));
+    }
+    public void ResetChange()
+    {
+        SetTexture("Skin", skinIndex = 0);
+        SetTexture("Eyes", eyesIndex = 0);
+        SetTexture("Mouth", mouthIndex = 0);
+        SetTexture("Hair", hairIndex = 0);
+        SetTexture("Clothes", clothesIndex = 0);
+        SetTexture("Armour", armourIndex = 0);
+    }
+    
     private void OnGUI()
     {
         if (scr.x != Screen.width / 16 || scr.y != Screen.height / 9)
@@ -180,124 +247,51 @@ public class Customisation : MonoBehaviour
             scr.x = Screen.width / 16;
             scr.y = Screen.height / 9;
         }
-        DisplayCustom();
+        
         DisplayStats();
         if (GUI.Button(new Rect(scr.x * 0.25f, 0.5f * scr.y, scr.x * 0.5f, scr.y * 0.5f), "Save"))
         {
             Save();
         }
     }
-    void DisplayCustom()
+    public void MinusClass()
     {
-        int i = 0;
-        #region Skin
-        if (GUI.Button(new Rect(scr.x * 0.25f, scr.y + i * (0.5f * scr.y), scr.x * 0.5f, scr.y * 0.5f), "<"))
+        selectedIndex--;
+        if (selectedIndex < 0)
         {
-            SetTexture("Skin", -1);
+            selectedIndex = 3;
         }
-
-        GUI.Box(new Rect(scr.x * 0.75f, scr.y + i * (0.5f * scr.y), scr.x, scr.y * 0.5f), "Skin");
-
-        if (GUI.Button(new Rect(scr.x * 1.75f, scr.y + i * (0.5f * scr.y), scr.x * 0.5f, scr.y * 0.5f), ">"))
-        {
-            SetTexture("Skin", 1);
-        }
-        i++;
-        #endregion
-        #region Eyes
-        if (GUI.Button(new Rect(scr.x * 0.25f, scr.y + i * (0.5f * scr.y), scr.x * 0.5f, scr.y * 0.5f), "<"))
-        {
-            SetTexture("Eyes", -1);
-        }
-
-        GUI.Box(new Rect(scr.x * 0.75f, scr.y + i * (0.5f * scr.y), scr.x, scr.y * 0.5f), "Eyes");
-
-        if (GUI.Button(new Rect(scr.x * 1.75f, scr.y + i * (0.5f * scr.y), scr.x * 0.5f, scr.y * 0.5f), ">"))
-        {
-            SetTexture("Eyes", 1);
-        }
-        i++;
-        #endregion
-        #region Mouth
-        if (GUI.Button(new Rect(scr.x * 0.25f, scr.y + i * (0.5f * scr.y), scr.x * 0.5f, scr.y * 0.5f), "<"))
-        {
-            SetTexture("Mouth", -1);
-        }
-
-        GUI.Box(new Rect(scr.x * 0.75f, scr.y + i * (0.5f * scr.y), scr.x, scr.y * 0.5f), "Mouth");
-
-        if (GUI.Button(new Rect(scr.x * 1.75f, scr.y + i * (0.5f * scr.y), scr.x * 0.5f, scr.y * 0.5f), ">"))
-        {
-            SetTexture("Mouth", 1);
-        }
-        i++;
-        #endregion
-        #region Hair
-        if (GUI.Button(new Rect(scr.x * 0.25f, scr.y + i * (0.5f * scr.y), scr.x * 0.5f, scr.y * 0.5f), "<"))
-        {
-            SetTexture("Hair", -1);
-        }
-
-        GUI.Box(new Rect(scr.x * 0.75f, scr.y + i * (0.5f * scr.y), scr.x, scr.y * 0.5f), "Hair");
-
-        if (GUI.Button(new Rect(scr.x * 1.75f, scr.y + i * (0.5f * scr.y), scr.x * 0.5f, scr.y * 0.5f), ">"))
-        {
-            SetTexture("Hair", 1);
-        }
-        i++;
-        #endregion
-        #region Clothes
-        if (GUI.Button(new Rect(scr.x * 0.25f, scr.y + i * (0.5f * scr.y), scr.x * 0.5f, scr.y * 0.5f), "<"))
-        {
-            SetTexture("Clothes", -1);
-        }
-
-        GUI.Box(new Rect(scr.x * 0.75f, scr.y + i * (0.5f * scr.y), scr.x, scr.y * 0.5f), "Clothes");
-
-        if (GUI.Button(new Rect(scr.x * 1.75f, scr.y + i * (0.5f * scr.y), scr.x * 0.5f, scr.y * 0.5f), ">"))
-        {
-            SetTexture("Clothes", 1);
-        }
-        i++;
-        #endregion
-        #region Armour
-        if (GUI.Button(new Rect(scr.x * 0.25f, scr.y + i * (0.5f * scr.y), scr.x * 0.5f, scr.y * 0.5f), "<"))
-        {
-            SetTexture("Armour", -1);
-        }
-
-        GUI.Box(new Rect(scr.x * 0.75f, scr.y + i * (0.5f * scr.y), scr.x, scr.y * 0.5f), "Armour");
-
-        if (GUI.Button(new Rect(scr.x * 1.75f, scr.y + i * (0.5f * scr.y), scr.x * 0.5f, scr.y * 0.5f), ">"))
-        {
-            SetTexture("Armour", 1);
-        }
-        i++;
-        #endregion
-        #region Random
-        if (GUI.Button(new Rect(scr.x * 0.25f, scr.y + i * (0.5f * scr.y), scr.x, scr.y * 0.5f), "Random"))
-        {
-            SetTexture("Skin", Random.Range(0, skinMax - 1));
-            SetTexture("Eyes", Random.Range(0, eyesMax - 1));
-            SetTexture("Mouth", Random.Range(0, mouthMax - 1));
-            SetTexture("Hair", Random.Range(0, hairMax - 1));
-            SetTexture("Clothes", Random.Range(0, clothesMax - 1));
-            SetTexture("Armour", Random.Range(0, armourMax - 1));
-        }
-        #endregion
-        #region Reset
-        if (GUI.Button(new Rect(scr.x * 1.25f, scr.y + i * (0.5f * scr.y), scr.x, scr.y * 0.5f), "Reset"))
-        {
-            SetTexture("Skin", skinIndex = 0);
-            SetTexture("Eyes", eyesIndex = 0);
-            SetTexture("Mouth", mouthIndex = 0);
-            SetTexture("Hair", hairIndex = 0);
-            SetTexture("Clothes", clothesIndex = 0);
-            SetTexture("Armour", armourIndex = 0);
-        }
-        i++;
-        #endregion
+        ChooseClass(selectedIndex);
     }
+    public void PlusClass()
+    {
+        selectedIndex++;
+        if (selectedIndex > 3)
+        {
+            selectedIndex = 0;
+        }
+        ChooseClass(selectedIndex);
+    }
+
+    public void MinusStr()
+    {
+        selectedIndex--;
+        if (selectedIndex < 0)
+        {
+            selectedIndex = 3;
+        }
+        ChooseClass(selectedIndex);
+    }
+    public void PlusStr()
+    {
+        selectedIndex++;
+        if (selectedIndex > 3)
+        {
+            selectedIndex = 0;
+        }
+        ChooseClass(selectedIndex);
+    }
+
 
     void DisplayStats()
     {
