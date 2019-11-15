@@ -25,6 +25,7 @@ public class PlayerHandler : MonoBehaviour
     public Image damageImage;
     public Image deathImage;
     public Text text;
+    public Text[] power;
     public AudioClip deathClip;
     public float flashSpeed = 5;
     public Color flashColour = new Color(1, 0, 0, 0.2f);
@@ -51,6 +52,11 @@ public class PlayerHandler : MonoBehaviour
         maxMana = 10 * stats[3].value;
         maxStamina = 10 * stats[1].value;
         maxHealth = 10 * stats[4].value;
+        for (int s = 0; s < 5; s++)
+        {
+            power[s].text = StatsNumbers.playerStats[s].statName + ": " + (stats[s].value);
+            s++;
+        }
     }
     void Update()
     {
@@ -76,6 +82,8 @@ public class PlayerHandler : MonoBehaviour
             {
                 Death();
             }
+            
+            
             //#if UNITY_EDITOR
             //Damage
             //if (Input.GetKeyDown(KeyCode.X))

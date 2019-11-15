@@ -6,34 +6,34 @@ using UnityEngine.UI;
 
 namespace RPG.Player
 {
-    public class Wolf : EnemyAI
+    public class Goblin : EnemyAI
     {
-        [Space(5), Header("Wolf Stats")]
+        [Space(5), Header("Goblin Stats")]
         public float curStamina;
         public float maxStamina;
         // Start is called before the first frame update
 
         void Start()
         {
-maxStamina = 1000;
-curStamina = 0;
+            maxStamina = 500;
+            curStamina = 0;
         }
 
         // Update is called once per frame
         public override void Update()
         {
             // A
-            
+
             // B
-            if (curStamina >= 0) 
+            if (curStamina >= 0)
             {
                 base.Update();
                 curStamina -= Time.deltaTime;
-                //makes the wolf have tire out over time
+                //makes the goblin tire out over time
             }
             else
             {
-                //when the wolf runs out of stamina it falls to sleep and stops moving
+                //fallAsleep when you run out of stamina and stop moving
                 Debug.Log("fall Asleep");
             }
         }
