@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Customisation : MonoBehaviour
 {
@@ -28,6 +29,10 @@ public class Customisation : MonoBehaviour
     public int selectedIndex, points = 10;
     public PlayerHandler player;
     public PlayerSaveAndLoad saveNew;
+    public Text[] text;
+    public Text ClassChar;
+    public Text pointValue;
+    public Input NameCharacter;
     void Start()
     {
         for (int i = 0; i < skinMax; i++)
@@ -240,20 +245,7 @@ public class Customisation : MonoBehaviour
         SetTexture("Armour", armourIndex = 0);
     }
     
-    private void OnGUI()
-    {
-        if (scr.x != Screen.width / 16 || scr.y != Screen.height / 9)
-        {
-            scr.x = Screen.width / 16;
-            scr.y = Screen.height / 9;
-        }
-        
-        DisplayStats();
-        if (GUI.Button(new Rect(scr.x * 0.25f, 0.5f * scr.y, scr.x * 0.5f, scr.y * 0.5f), "Save"))
-        {
-            Save();
-        }
-    }
+   
     public void MinusClass()
     {
         selectedIndex--;
@@ -262,6 +254,7 @@ public class Customisation : MonoBehaviour
             selectedIndex = 3;
         }
         ChooseClass(selectedIndex);
+        ClassChar.text = charClass.ToString();
     }
     public void PlusClass()
     {
@@ -271,81 +264,34 @@ public class Customisation : MonoBehaviour
             selectedIndex = 0;
         }
         ChooseClass(selectedIndex);
+ClassChar.text = charClass.ToString();
     }
 
-    public void MinusStr()
+    
+    public void PlusStat(int s)
     {
-        selectedIndex--;
-        if (selectedIndex < 0)
+        if (points > 0)
         {
-            selectedIndex = 3;
-        }
-        ChooseClass(selectedIndex);
-    }
-    public void PlusStr()
-    {
-        selectedIndex++;
-        if (selectedIndex > 3)
-        {
-            selectedIndex = 0;
-        }
-        ChooseClass(selectedIndex);
-    }
-
-
-    void DisplayStats()
-    {
-        characterName = GUI.TextField(new Rect(scr.x * 6, scr.y * 7.5f, scr.x * 4, scr.y * 0.5f), characterName, 20);
-        int i = 0;
-        #region Class
-        if (GUI.Button(new Rect(scr.x * 13.25f, scr.y + i * (0.5f * scr.y), scr.x * 0.5f, scr.y * 0.5f), "<"))
-        {
-            selectedIndex--;
-            if (selectedIndex < 0)
-            {
-                selectedIndex = 3;
-            }
-            ChooseClass(selectedIndex);
-        }
-        GUI.Box(new Rect(scr.x * 13.75f, scr.y + i * (0.5f * scr.y), scr.x * 1.5f, scr.y * 0.5f), charClass.ToString());
-        if (GUI.Button(new Rect(scr.x * 15.25f, scr.y + i * (0.5f * scr.y), scr.x * 0.5f, scr.y * 0.5f), ">"))
-        {
-            selectedIndex++;
-            if (selectedIndex > 3)
-            {
-                selectedIndex = 0;
-            }
-            ChooseClass(selectedIndex);
-        }
-        i++;
-        #endregion
-        #region StatDistribution
-        //in variables public int points = 10
-        GUI.Box(new Rect(scr.x * 13.25f, scr.y + i * (0.5f * scr.y), scr.x * 2.5f, scr.y * 0.5f), "Points: " + points);
-
-        for (int s = 0; s < playerStats.Length; s++)
-        {
-            if (points > 0)
-            {
-                if (GUI.Button(new Rect(scr.x * 15.25f, 2 * scr.y + s * (0.5f * scr.y), scr.x * 0.5f, scr.y * 0.5f), "+"))
-                {
-                    points--;
+        points--;
                     playerStats[s].tempStat++;
-                }
-            }
-            GUI.Box(new Rect(scr.x * 13.75f, 2 * scr.y + s * (0.5f * scr.y), 1.5f * scr.x, scr.y * 0.5f), playerStats[s].statName + ": " + (playerStats[s].statValue + playerStats[s].tempStat));
-
-            if (points < 10 && playerStats[s].tempStat > 0)
-            {
-                if (GUI.Button(new Rect(scr.x * 13.25f, 2 * scr.y + s * (0.5f * scr.y), scr.x * 0.5f, scr.y * 0.5f), "-"))
-                {
-                    points++;
-                    playerStats[s].tempStat--;
-                }
-            }
         }
-        #endregion
+        text[s].text = playerStats[s].statName + ": " + (playerStats[s].statValue + playerStats[s].tempStat);
+pointValue.text = "Points: " + points;
     }
+    public void MinusStat(int s)
+    {
+      if (points < 10)
+      {
+        points++;
+                    playerStats[s].tempStat--;
+      }  
+              text[s].text = playerStats[s].statName + ": " + (playerStats[s].statValue + playerStats[s].tempStat);
+pointValue.text = "Points: " + points;
+
+    }
+
+
+    
     void ChooseClass(int classID)
 	{
 		if(classID < 0)
