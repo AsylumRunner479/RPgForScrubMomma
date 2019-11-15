@@ -15,13 +15,25 @@ namespace RPG.Player
 
         void Start()
         {
-
+maxStamina = 100;
+curStamina = 0;
         }
 
         // Update is called once per frame
-        void Update()
+        public override void Update()
         {
-
+            // A
+            base.Update();
+            // B
+            if (curStamina >= maxStamina) 
+            {
+Debug.Log("Override");
+curStamina = 0;
+            }
+            else
+            {
+                curStamina += Time.deltaTime;
+            }
         }
     }
 }

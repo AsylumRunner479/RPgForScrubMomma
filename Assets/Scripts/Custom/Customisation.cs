@@ -25,14 +25,16 @@ public class Customisation : MonoBehaviour
     };
     public Stats[] playerStats = new Stats[6];
     public CharacterClass charClass;
+    public CharacterRace charRace;
     public Vector2 scr;
-    public int selectedIndex, points = 10;
+    public int selectedIndex, Indexselected, points = 10;
     public PlayerHandler player;
     public PlayerSaveAndLoad saveNew;
     public Text[] text;
+    public Text RaceChar;
     public Text ClassChar;
     public Text pointValue;
-    public Input NameCharacter;
+    public InputField NameCharacter;
     void Start()
     {
         for (int i = 0; i < skinMax; i++)
@@ -65,6 +67,7 @@ public class Customisation : MonoBehaviour
             Texture2D tempTexture = Resources.Load("Character/Armour_" + i.ToString()) as Texture2D;
             armour.Add(tempTexture);
         }
+        //make the array of different options be there
         SetTexture("Skin", 0);
         SetTexture("Eyes", 0);
         SetTexture("Mouth", 0);
@@ -72,33 +75,45 @@ public class Customisation : MonoBehaviour
         SetTexture("Clothes", 0);
         SetTexture("Armour", 0);
         ChooseClass(selectedIndex);
+        ChooseRace(Indexselected);
+        //spawns in the default on the character
     }
     public void Save()
     {
-        player.maxHealth = 100;
-        player.maxMana = 100;
-        player.maxStamina = 100;
-
-        player.curHealth = player.maxHealth;
-        player.curMana = player.maxMana;
-        PlayerHandler.curStamina = player.maxStamina;
-
-        player.skinIndex = skinIndex;
-        player.hairIndex = hairIndex;
-        player.armourIndex = armourIndex;
-        player.mouthIndex = mouthIndex;
-        player.clothesIndex = clothesIndex;
-        player.eyesIndex = eyesIndex;
-
-        player.characterClass = charClass;
-        player.characterName = characterName;
-        for (int i = 0; i < playerStats.Length; i++)
+        if (points == 0)
         {
-            player.stats[i].value = (playerStats[i].statValue + playerStats[i].tempStat);
+            player.maxHealth = 100;
+            player.maxMana = 100;
+            player.maxStamina = 100;
+
+            player.curHealth = player.maxHealth;
+            player.curMana = player.maxMana;
+            PlayerHandler.curStamina = player.maxStamina;
+
+            player.skinIndex = skinIndex;
+            player.hairIndex = hairIndex;
+            player.armourIndex = armourIndex;
+            player.mouthIndex = mouthIndex;
+            player.clothesIndex = clothesIndex;
+            player.eyesIndex = eyesIndex;
+
+            player.characterClass = charClass;
+            player.characterRace = charRace;
+            player.characterName = NameCharacter.text;
+            for (int i = 0; i < playerStats.Length; i++)
+            {
+                player.stats[i].value = (playerStats[i].statValue + playerStats[i].tempStat);
+            }
+            saveNew.Save();
+            SceneManager.LoadScene(2);
         }
-        saveNew.Save();
-        SceneManager.LoadScene(2);
     }
+    public void Update()
+    {
+        //characterName = NameCharacter.text; 
+}
+    // is used to save your indexes you sent
+    
     public void SetTexture(string type, int dir)
     {
         int index = 0, max = 0, matIndex = 0;
@@ -141,6 +156,7 @@ public class Customisation : MonoBehaviour
                 matIndex = 6;
                 textures = armour.ToArray();
                 break;
+                //allows you changes to the code affect the 
         }
         index += dir;
         if (index < 0)
@@ -151,6 +167,8 @@ public class Customisation : MonoBehaviour
         {
             index = 0;
         }
+// these allow the code to loop around
+    
         Material[] mat = characterRenderer.materials;
         mat[matIndex].mainTexture = textures[index];
         characterRenderer.materials = mat;
@@ -176,56 +194,70 @@ public class Customisation : MonoBehaviour
                 armourIndex = index;
                 break;
         }
+        //defines the changes so they can be loaded back into the code
 
+    
     }
     public void MinusSkin()
     {
         SetTexture("Skin", -1);
     }
+// press the button to change skin back by one
     public void PlusSkin()
     {
         SetTexture("Skin", 1);
     }
+    // press the button to change skin forward by one
     public void MinusEyes()
     {
         SetTexture("Eyes", -1);
     }
+    // press the button to change eyes back by one
     public void PlusEyes()
     {
         SetTexture("Eyes", 1);
     }
+    // press the button to change eyes forward by one
     public void MinusMouth()
     {
         SetTexture("Mouth", -1);
     }
+    // press the button to change mouth back by one
     public void PlusMouth()
     {
         SetTexture("Mouth", 1);
     }
+    // press the button to change mouth forward by one
     public void MinusHair()
     {
         SetTexture("Hair", -1);
     }
+    // press the button to change hair back by one
     public void PlusHair()
     {
         SetTexture("Hair", 1);
     }
+    // press the button to change hair forward by one
     public void MinusClothes()
     {
         SetTexture("Clothes", -1);
     }
+    // press the button to change clothes back by one
     public void PlusClothes()
     {
         SetTexture("Clothes", 1);
     }
+    // press the button to change clothes forward by one
     public void MinusArmour()
     {
         SetTexture("Armour", -1);
     }
+    // press the button to change armour back by one
     public void PlusArmour()
     {
         SetTexture("Armour", 1);
     }
+    // press the button to change armour forward by one
     public void RandomChange()
     {
         SetTexture("Skin", Random.Range(0, skinMax - 1));
@@ -235,6 +267,7 @@ public class Customisation : MonoBehaviour
         SetTexture("Clothes", Random.Range(0, clothesMax - 1));
         SetTexture("Armour", Random.Range(0, armourMax - 1));
     }
+    // move all index forward a random number of spots
     public void ResetChange()
     {
         SetTexture("Skin", skinIndex = 0);
@@ -244,6 +277,7 @@ public class Customisation : MonoBehaviour
         SetTexture("Clothes", clothesIndex = 0);
         SetTexture("Armour", armourIndex = 0);
     }
+    // makes all the index go back to 0 values
     
    
     public void MinusClass()
@@ -256,6 +290,7 @@ public class Customisation : MonoBehaviour
         ChooseClass(selectedIndex);
         ClassChar.text = charClass.ToString();
     }
+    // changes the class the one beforehand and displays it
     public void PlusClass()
     {
         selectedIndex++;
@@ -266,8 +301,29 @@ public class Customisation : MonoBehaviour
         ChooseClass(selectedIndex);
 ClassChar.text = charClass.ToString();
     }
-
-    
+// changes the class the one after and displays it
+     public void MinusRace()
+    {
+        Indexselected--;
+        if (Indexselected < 0)
+        {
+            Indexselected = 3;
+        }
+        ChooseRace(Indexselected);
+        RaceChar.text = charRace.ToString();
+    }
+    // changes the class the one beforehand and displays it
+    public void PlusRace()
+    {
+        Indexselected++;
+        if (Indexselected > 3)
+        {
+            Indexselected = 0;
+        }
+        ChooseRace(Indexselected);
+RaceChar.text = charRace.ToString();
+    }
+// changes the class the one after and displays it
     public void PlusStat(int s)
     {
         if (points > 0)
@@ -278,6 +334,7 @@ ClassChar.text = charClass.ToString();
         text[s].text = playerStats[s].statName + ": " + (playerStats[s].statValue + playerStats[s].tempStat);
 pointValue.text = "Points: " + points;
     }
+    // allows you you to use your points to increase certain stats
     public void MinusStat(int s)
     {
       if (points < 10)
@@ -289,7 +346,7 @@ pointValue.text = "Points: " + points;
 pointValue.text = "Points: " + points;
 
     }
-
+// allows you to dump values for bonus points
 
     
     void ChooseClass(int classID)
@@ -338,6 +395,52 @@ pointValue.text = "Points: " + points;
 		break;
 	}
 	}
+    void ChooseRace(int raceID)
+	{
+		if(raceID < 0)
+		{
+			
+		}
+	switch(raceID)
+	{
+		case 0:
+		playerStats[0].statValue = 8;
+		playerStats[1].statValue = 2;
+		playerStats[2].statValue = 5;
+		playerStats[3].statValue = 5;
+		playerStats[4].statValue = 2;
+		playerStats[5].statValue = 4;
+		charRace = CharacterRace.Elf;
+		break;
+		case 1:
+		playerStats[0].statValue = 4;
+		playerStats[1].statValue = 5;
+		playerStats[2].statValue = 6;
+		playerStats[3].statValue = 3;
+		playerStats[4].statValue = 5;
+		playerStats[5].statValue = 3;
+		charRace = CharacterRace.Dwarf;
+		break;
+		case 2:
+		playerStats[0].statValue = 5;
+		playerStats[1].statValue = 9;
+		playerStats[2].statValue = 5;
+		playerStats[3].statValue = 9;
+		playerStats[4].statValue = 8;
+		playerStats[5].statValue = 8;
+		charRace = CharacterRace.Human;
+		break;
+		case 3:
+		playerStats[0].statValue = 1;
+		playerStats[1].statValue = 5;
+		playerStats[2].statValue = 9;
+		playerStats[3].statValue = 3;
+		playerStats[4].statValue = 1;
+		playerStats[5].statValue = 5;
+		charRace = CharacterRace.Undead;
+		break;
+	}
+	}
 
 }
 public enum CharacterClass
@@ -346,4 +449,12 @@ public enum CharacterClass
         Mage,
         Thief,
         Normy
+    }
+    public enum CharacterRace
+    {
+        Elf,
+        Dwarf,
+        Human,
+        Undead
+
     }

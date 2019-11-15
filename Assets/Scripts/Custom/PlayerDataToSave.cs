@@ -16,6 +16,7 @@ public class PlayerDataToSave
     public static int saveSlot;
     public int[] stats = new int[6];
     public int classIndex;
+    public int raceIndex;
     public int skinIndex, eyesIndex, mouthIndex, hairIndex, clothesIndex, armourIndex;
     public PlayerDataToSave(PlayerHandler player)
     {
@@ -59,7 +60,7 @@ public class PlayerDataToSave
         eyesIndex = player.eyesIndex;
         clothesIndex = player.clothesIndex;
         armourIndex = player.armourIndex;
-
+raceIndex = (int)player.characterRace;
         classIndex = (int)player.characterClass;
     }
 

@@ -33,8 +33,9 @@ namespace RPG.Player
 
 
         }
-        void Update()
+        public virtual void Update()
         {
+            // A
             noiseRange = movement.noise * sense;
             //kills the enemy when they lose all their health
             if (curHealth <= 0)

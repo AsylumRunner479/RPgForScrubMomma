@@ -30,6 +30,7 @@ public class PlayerHandler : MonoBehaviour
     public Color flashColour = new Color(1, 0, 0, 0.2f);
     AudioSource playerAudio;
     public static bool isDead;
+    public Customisation StatsNumbers;
     bool damaged;
     bool canHeal;
     float healTimer;
@@ -41,11 +42,15 @@ public class PlayerHandler : MonoBehaviour
     public bool custom;
     public int skinIndex, eyesIndex, mouthIndex, hairIndex, clothesIndex, armourIndex;
     public CharacterClass characterClass;
+    public CharacterRace characterRace;
     public string characterName;
     public string firstCheckPointName = "First CheckPoint";
     private void Start()
     {
         playerAudio = GetComponent<AudioSource>();
+        maxMana = 10 * stats[3].value;
+        maxStamina = 10 * stats[1].value;
+        maxHealth = 10 * stats[4].value;
     }
     void Update()
     {
