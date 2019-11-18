@@ -19,7 +19,7 @@ public static class ItemData
     int heal = 0;
      string iconName = "";
      string meshName = "";
-
+        //itemId is used in the game as a shorthand for referencing different items and assign value to the stats from Item
      ItemTypes type = ItemTypes.Misc;
     switch(itemId)
         {

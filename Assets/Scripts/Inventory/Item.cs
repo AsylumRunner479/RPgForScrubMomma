@@ -4,7 +4,7 @@ using UnityEngine;
 public class Item
 {
     
-    
+    //this script is designed to assign a bunch of stats options and reference type for all the items you can get in the game
       #region Variables
     private int _id;
     //id of the item for programmers and developers
@@ -86,6 +86,7 @@ public class Item
     // Start is called before the first frame update
 
 }
+//lists out the various item types available
   public enum ItemTypes 
     {
         Armour,

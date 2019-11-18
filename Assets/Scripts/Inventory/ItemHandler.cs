@@ -9,10 +9,12 @@ public class ItemHandler : MonoBehaviour
     public int amount = 1;
     public void OnCollection()
     {
+        //money will be added as an addition to a variable rather then an individual item
         if (itemType == ItemTypes.Money)
         {
             LinearInventory.money += amount;
         }
+        //most items will be stored in the inventory as a a certain type which can stack.
         else if (itemType == ItemTypes.Craftable || itemType == ItemTypes.Food || itemType == ItemTypes.Potion || itemType == ItemTypes.Ingredient)
         {
             int found = 0;

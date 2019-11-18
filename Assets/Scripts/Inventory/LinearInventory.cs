@@ -30,7 +30,7 @@ public class LinearInventory : MonoBehaviour
 
     void Start()
     {
-        
+        //adds on a bunch of different items in your inventory
         inv.Add(ItemData.CreateItem(300));
         inv.Add(ItemData.CreateItem(301));
         inv.Add(ItemData.CreateItem(302));
@@ -60,6 +60,7 @@ public class LinearInventory : MonoBehaviour
     }
     private void Update()
     {
+        // makes the inventory open and close based on whther you press tab.
         if (Input.GetButtonDown("Inventory") && !PauseMenu.isPaused)
         {
             showInv = !showInv;
@@ -181,7 +182,9 @@ public class LinearInventory : MonoBehaviour
                 false,
                //Can we see our Vertical Bar?
                true);
+
                 #region Scrollable Space
+                //displays all the invenory items in a list format
                 for (int i = 0; i < inv.Count; i++)
                 {
                     if (GUI.Button(new Rect(0.5f * scr.x, i * (0.25f * scr.y), 3 * scr.x, 0.25f * scr.y), inv[i].Name))
@@ -210,6 +213,7 @@ public class LinearInventory : MonoBehaviour
             GUI.skin = null;
             if (invFilterOptions)
             {
+                //allows you filter the items by type for easier navigation
                 if (GUI.Button(new Rect(5.5f * scr.x, 6.75f * scr.y, 1.5f * scr.x, 0.25f * scr.y), "All"))
                 {
                     sortType = "All";
@@ -262,6 +266,7 @@ public class LinearInventory : MonoBehaviour
         }
         void UseItem()
         {
+            //displays all the stat and options on what to do with them
             GUI.Box(new Rect(4f * scr.x, 0.25f * scr.y, 3 * scr.x, 0.25f * scr.y), selectedItem.Name, titleStyle);
             GUI.skin = invSkin;
             GUI.Box(new Rect(4f * scr.x, 0.5f * scr.y, 3 * scr.x, 3 * scr.y), selectedItem.IconName);
@@ -269,6 +274,7 @@ public class LinearInventory : MonoBehaviour
             switch (selectedItem.ItemType)
             {
                 case ItemTypes.Armour:
+                    //this allows to wear and take off your colothing from your inventory
                     if (equippedItems[1].equippedItem == null || selectedItem.Name != equippedItems[1].equippedItem.name)
                     {
                         if (GUI.Button(new Rect(4 * scr.x, 6.5f * scr.y, 1.5f * scr.x, 0.25f * scr.y), "Wear"))
@@ -283,7 +289,7 @@ public class LinearInventory : MonoBehaviour
                     }
                     else
                     {
-                        if (GUI.Button(new Rect(4 * scr.x, 6.5f * scr.y, 1.5f * scr.x, 0.25f * scr.y), "strip"))
+                        if (GUI.Button(new Rect(4 * scr.x, 7f * scr.y, 1.5f * scr.x, 0.25f * scr.y), "strip"))
                         {
                             Destroy(equippedItems[1].equippedItem);
                             equippedItems[1].equippedItem = null;
@@ -291,7 +297,8 @@ public class LinearInventory : MonoBehaviour
                     }
                     break;
                 case ItemTypes.Weapon:
-
+                    //when a weapon is selected this allows you to see the damage and equip and de equip it
+                    GUI.Box(new Rect(4 * scr.x, 7f * scr.y, 1.5f * scr.x, 0.25f * scr.y), "Damage: " + selectedItem.Damage);
                     if (equippedItems[1].equippedItem == null || selectedItem.Name != equippedItems[1].equippedItem.name)
                     {
                         if (GUI.Button(new Rect(4 * scr.x, 6.5f * scr.y, 1.5f * scr.x, 0.25f * scr.y), "Equip"))
@@ -312,11 +319,12 @@ public class LinearInventory : MonoBehaviour
                             equippedItems[1].equippedItem = null;
                         }
                     }
+                    
                     break;
                 case ItemTypes.Potion:
                     if (GUI.Button(new Rect(4 * scr.x, 6.5f * scr.y, 1.5f * scr.x, 0.25f * scr.y), "Drink"))
                     {
-                        
+                        // heals the player when they drink a potion
                             player.curHealth += selectedItem.Heal;
                             selectedItem.Amount -= 1;
 
@@ -325,6 +333,7 @@ public class LinearInventory : MonoBehaviour
                 case ItemTypes.Food:
                     if (GUI.Button(new Rect(4 * scr.x, 6.5f * scr.y, 1.5f * scr.x, 0.25f * scr.y), "Eat"))
                     {
+                        //heals the player when they eat something
                         player.curHealth += selectedItem.Heal;
                         selectedItem.Amount -= 1;
                     }
@@ -332,18 +341,20 @@ public class LinearInventory : MonoBehaviour
                 case ItemTypes.Ingredient:
                     if (GUI.Button(new Rect(4 * scr.x, 6.5f * scr.y, 1.5f * scr.x, 0.25f * scr.y), "Use"))
                     {
-
+                        selectedItem.Amount -= 1;
                     }
                     break;
                 case ItemTypes.Craftable:
                     if (GUI.Button(new Rect(4 * scr.x, 6.5f * scr.y, 1.5f * scr.x, 0.25f * scr.y), "Use"))
                     {
-
+                        selectedItem.Amount -= 1;
                     }
                     break;
                 default:
                     break;
             }
+            
+            // this allows the player to throw away items they don't need or want
             if (GUI.Button(new Rect(5.5f * scr.x, 6.5f * scr.y, 1.5f * scr.x, 0.25f * scr.y), "Discard"))
             {
                 //check if the item is equipped
