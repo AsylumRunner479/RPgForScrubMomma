@@ -20,7 +20,7 @@ namespace RPG.Player
         }
 
         // Update is called once per frame
-        //makes the enemy spawn when it dies
+        //makes the enemy not die instantly but delays it.
         public override void Die()
         {
             if (curStamina >= maxStamina)
@@ -29,8 +29,8 @@ namespace RPG.Player
             }
             else
             {
-                Transform waypoint = points[currentWayPoint].position;
-                Instantiate(self);
+                
+                Destroy(self);
             }
         }
     }
