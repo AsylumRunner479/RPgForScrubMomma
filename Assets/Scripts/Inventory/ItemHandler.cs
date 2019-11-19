@@ -49,7 +49,7 @@ public class ItemHandler : MonoBehaviour
                 }
             
         }
-
+        //when you grab an item it is added to your inventory and it is destroyed in the game.
         else
         {
             LinearInventory.inv.Add(ItemData.CreateItem(itemId));

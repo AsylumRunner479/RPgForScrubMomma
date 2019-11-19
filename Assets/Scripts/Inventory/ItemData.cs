@@ -23,6 +23,7 @@ public static class ItemData
      ItemTypes type = ItemTypes.Misc;
     switch(itemId)
         {
+            //an index of all the items you can get in this world and what type they are
             #region Armour 0-99
             case 0:
             name = "LightArmour";
@@ -380,6 +381,7 @@ public static class ItemData
         }
         Item temp = new Item
         {
+
             ID = itemId,
             Name = name,
             Description = description,
@@ -388,6 +390,7 @@ public static class ItemData
             Damage = damage,
             Armour = armour,
             Heal = heal,
+            //loads the icon and gameobject from the folders when needed
             IconName = Resources.Load("Icons/"+ iconName) as Texture2D,
             MeshName = Resources.Load("Prefabs/"+ meshName)as GameObject,
             ItemType = type
