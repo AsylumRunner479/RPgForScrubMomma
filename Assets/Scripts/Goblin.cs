@@ -20,21 +20,17 @@ namespace RPG.Player
         }
 
         // Update is called once per frame
-        public override void Update()
+        //makes the enemy spawn when it dies
+        public override void Die()
         {
-            // A
-
-            // B
-            if (curStamina >= 0)
+            if (curStamina >= maxStamina)
             {
-                base.Update();
-                curStamina -= Time.deltaTime;
-                //makes the goblin tire out over time
+                curStamina += Time.deltaTime;
             }
             else
             {
-                //fallAsleep when you run out of stamina and stop moving
-                Debug.Log("fall Asleep");
+                Transform waypoint = points[currentWayPoint].position;
+                Instantiate(self);
             }
         }
     }

@@ -25,10 +25,10 @@ curStamina = 0;
             // A
             
             // B
-            if (curStamina >= 0) 
+            if (curStamina >= maxStamina) 
             {
                 base.Update();
-                curStamina -= Time.deltaTime;
+                curStamina += Time.deltaTime;
                 //makes the wolf have tire out over time
             }
             else

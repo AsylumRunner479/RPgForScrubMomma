@@ -8,6 +8,7 @@ namespace RPG.Player
 {
     public class EnemyAI : MonoBehaviour
     {
+        // this is a general EnemyAI which is inherited by both the wolf and the goblin.
         //desiginates who the player is
         public Transform target;
         public float curHealth, maxHealth, moveSpeed, attackRange, attackSpeed, noiseRange, sense;
@@ -21,9 +22,9 @@ namespace RPG.Player
         public float angle;
         public Movement movement;
         public Transform waypointParent;
-        private Transform[] points;
+        protected Transform[] points;
         public float waypointDistance;
-        public int currentWayPoint = 1;
+        protected int currentWayPoint = 1;
         void Start()
         {
             //sets the conditions at the start
@@ -33,6 +34,12 @@ namespace RPG.Player
 
 
         }
+
+        public virtual void Die()
+        {
+            Destroy(self);
+        }
+
         public virtual void Update()
         {
             // A
@@ -40,7 +47,7 @@ namespace RPG.Player
             //kills the enemy when they lose all their health
             if (curHealth <= 0)
             {
-
+                Die();    
             }
             //moves the enemy when the player is alive
             if (PlayerHandler.isDead == false)
@@ -57,7 +64,7 @@ namespace RPG.Player
                     Debug.Log("Attack");
 
                 }
-                //follows the player when they see him
+                //follows the player when they hear him
                 else if (dist <= noiseRange)
                 {
                     agent.destination = target.position;
