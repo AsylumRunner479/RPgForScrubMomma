@@ -13,6 +13,7 @@ namespace RPG.Player
             MouseY,
         }
         [Header("Rotation Variables")]
+        //sets the range of movement in defined limits
         public RotationalAxis axis = RotationalAxis.MouseX;
         [Range(0,200)]
         public float sensitivity = 15;
@@ -24,7 +25,7 @@ namespace RPG.Player
             //If the object is a rigid body (the player)
             if (GetComponent<Rigidbody>())
             {
-                GetComponent<Rigidbody>().freezeRotation = true; // freeze the rigid body rotation so it doesn't muk up our mouse look code
+                GetComponent<Rigidbody>().freezeRotation = true; // freeze the rigid body rotation so it doesn't muck up our mouse look code
             }
             Cursor.lockState = CursorLockMode.Locked; // lock the mouse cursor
             Cursor.visible = false; // hide the mouse cursor

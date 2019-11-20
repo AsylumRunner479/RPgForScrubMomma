@@ -68,40 +68,38 @@ public class PlayerHandler : MonoBehaviour
                 curHealth = Mathf.Clamp(curHealth, 0, maxHealth);
                 healthBar.value = Mathf.Clamp01(curHealth / maxHealth);
             }
+            //display mana
             if (manaBar.value != Mathf.Clamp01(curMana / maxMana))
             {
                 curMana = Mathf.Clamp(curMana, 0, maxMana);
                 manaBar.value = Mathf.Clamp01(curMana / maxMana);
             }
+            //display stamina
             if (staminaBar.value != Mathf.Clamp01(curStamina / maxStamina))
             {
                 curStamina = Mathf.Clamp(curStamina, 0, maxStamina);
                 staminaBar.value = Mathf.Clamp01(curStamina / maxStamina);
             }
+            //dies when running out of health
             if (curHealth <= 0 && !isDead)
             {
                 Death();
             }
             
             
-            //#if UNITY_EDITOR
-            //Damage
-            //if (Input.GetKeyDown(KeyCode.X))
-            // {
-            // damaged = true;
-            // curHealth -= 5;
-            // }
-            //#endif
-
+           
+            //shows when the character gets damaged
             if (damaged && !isDead)
             {
                 damageImage.color = flashColour;
                 damaged = false;
             }
+            
             else
             {
                 damageImage.color = Color.Lerp(damageImage.color, Color.clear, flashSpeed * Time.deltaTime);
             }
+            //can heal under certain circumstances
             if (!canHeal && curHealth < maxHealth && curHealth > 0)
             {
                 healTimer += Time.deltaTime;
@@ -114,11 +112,13 @@ public class PlayerHandler : MonoBehaviour
     }
     private void LateUpdate()
     {
+        //heals after checking if you can heal
         if (curHealth < maxHealth && curHealth > 0 && canHeal)
         {
             HealOverTime();
         }
     }
+    //your character dies
     void Death()
     {
         //Set the death flag to this function isnt called again
