@@ -25,6 +25,7 @@ namespace RPG.Player
         protected Transform[] points;
         public float waypointDistance;
         protected int currentWayPoint = 1;
+
         void Start()
         {
             //sets the conditions at the start
