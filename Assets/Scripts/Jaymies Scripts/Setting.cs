@@ -14,8 +14,21 @@ public class Setting : MonoBehaviour
     public Dropdown resolutionDropDown;
     Resolution[] resolutions;
     // Start is called before the first frame update
+    //public KeyBinds[] keys;
+    struct KeyBinds
+    {
+        public string name;
+        public KeyCode key;
+    };
+    public Text keyButtons;
+    public Text fowardButton, backwardButton;
+    public KeyCode forward, backward, tempKey;
     void Start()
     {
+        forward = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Forward", "W"));
+        fowardButton.text = forward.ToString();
+        backward = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Backward", "S"));
+        backwardButton.text = backward.ToString();
         resolutions = Screen.resolutions;
         resolutionDropDown.ClearOptions();
         List<string> options = new List<string>();
@@ -36,6 +49,32 @@ public class Setting : MonoBehaviour
         resolutionDropDown.RefreshShownValue(); 
 
      }
+    public void Forward()
+    {
+        if (backward != KeyCode.None)
+        {
+            tempKey = forward;
+            forward = KeyCode.None;
+        }
+        forwardButton.text = forward.ToString();
+    }
+    private void OnGUI()
+    {
+        Event e = Event.current;
+        if (forward == KeyCode.None)
+        {
+            if (e.keyCode != backward)
+            {
+                forward = e.keyCode;
+                forwardButton.text = forward.ToString();
+            }
+            else
+            {
+                forward = tempKey;
+                forwardButton.text = forward.ToString();
+            }
+        }
+    }
     public void SetVolume(float volume)
     {
         Debug.Log(volume);
@@ -55,6 +94,7 @@ public class Setting : MonoBehaviour
         Resolution resolution = resolutions[resolutionIndex];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
     }
+
     // Update is called once per frame
     void Update()
     {
