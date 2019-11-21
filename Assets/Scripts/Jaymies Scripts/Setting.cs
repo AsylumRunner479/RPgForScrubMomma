@@ -21,12 +21,12 @@ public class Setting : MonoBehaviour
         public KeyCode key;
     };
     public Text keyButtons;
-    public Text fowardButton, backwardButton;
+    public Text forwardButton, backwardButton;
     public KeyCode forward, backward, tempKey;
     void Start()
     {
         forward = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Forward", "W"));
-        fowardButton.text = forward.ToString();
+        forwardButton.text = forward.ToString();
         backward = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Backward", "S"));
         backwardButton.text = backward.ToString();
         resolutions = Screen.resolutions;
