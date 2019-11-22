@@ -25,7 +25,7 @@ public class LinearInventory : MonoBehaviour
         public GameObject equippedItem;
     };
     public EquippedItems[] equippedItems;
-
+    public Text UseItem;
     public GameObject[] weapons;
     public GameObject[] armours;
     public GameObject[] potions;
@@ -45,7 +45,7 @@ public class LinearInventory : MonoBehaviour
     public struct DisplayItem
     {
         public Text itemName;
-        public Image itemIcon;
+        public RawImage itemIcon;
         public Text itemDescription;
         public Text itemDamage;
 
@@ -147,6 +147,7 @@ public class LinearInventory : MonoBehaviour
         weapons[0].SetActive(true);
         weapons[1].SetActive(true);
         weapons[2].SetActive(true);
+        UseItem.text = "Equip";
     }
     public void ShowArmour()
     {
@@ -349,11 +350,11 @@ public class LinearInventory : MonoBehaviour
 
         display.itemName.text = selectedItem.Name;
         //display.itemIcon.sprite = selectedItem.IconName;
-
-        display.itemIcon.GetComponent<Image>().material.mainTexture = selectedItem.IconName.texture;
-
         display.itemDescription.text = selectedItem.Description + "\nAmount: " + selectedItem.Amount + "\nPrice: $" + selectedItem.Value;
         display.itemDamage.text = "Damage: " + selectedItem.Damage;
+        display.itemIcon.texture = selectedItem.IconName.texture;
+
+        
         Debug.Log("ShowItem");
     }
     
