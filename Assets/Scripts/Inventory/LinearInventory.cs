@@ -7,6 +7,7 @@ public class LinearInventory : MonoBehaviour
     #region Variables
     public static List<Item> inv = new List<Item>();
     public static bool showInv;
+    public GameObject invShow;
     public Item item;
     public PlayerHandler player;
     public Vector2 scr;
@@ -23,6 +24,15 @@ public class LinearInventory : MonoBehaviour
         public GameObject equippedItem;
     };
     public EquippedItems[] equippedItems;
+    public GameObject[] weapons;
+    public GameObject[] armours;
+    public GameObject[] potions;
+    public GameObject[] foods;
+    public GameObject[] ingredients;
+    public GameObject[] craftables;
+    public GameObject[] quests;
+    public GameObject[] miscs;
+    public GameObject[] ItemOptions;
     public bool invFilterOptions;
     public GUISkin invSkin;
     public GUIStyle titleStyle;
@@ -57,21 +67,25 @@ public class LinearInventory : MonoBehaviour
         inv.Add(ItemData.CreateItem(702));
         money = 1000;
         showInv = false;
+        invShow.SetActive(false);
     }
     private void Update()
     {
         // makes the inventory open and close based on whther you press tab.
         if (Input.GetButtonDown("Inventory") && !PauseMenu.isPaused)
         {
+            
             showInv = !showInv;
             if (showInv)
             {
+                invShow.SetActive(true);
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
                 Time.timeScale = 0;
             }
             else
             {
+                invShow.SetActive(false);
                 Cursor.visible = false;
                 Cursor.lockState = CursorLockMode.Locked;
                 Time.timeScale = 1;
@@ -87,6 +101,116 @@ public class LinearInventory : MonoBehaviour
         {
             inv[10].Amount++;
         }
+    }
+    private void HideItems()
+    {
+        weapons[0].SetActive(false);
+        weapons[1].SetActive(false);
+        weapons[2].SetActive(false);
+        armours[0].SetActive(false);
+        armours[1].SetActive(false);
+        armours[2].SetActive(false);
+        potions[0].SetActive(false);
+        potions[1].SetActive(false);
+        potions[2].SetActive(false);
+        foods[0].SetActive(false);
+        foods[1].SetActive(false);
+        foods[2].SetActive(false);
+        ingredients[0].SetActive(false);
+        ingredients[1].SetActive(false);
+        ingredients[2].SetActive(false);
+       craftables[0].SetActive(false);
+        craftables[1].SetActive(false);
+        craftables[2].SetActive(false);
+        quests[0].SetActive(false);
+        quests[1].SetActive(false);
+        quests[2].SetActive(false);
+        miscs[0].SetActive(false);
+        miscs[1].SetActive(false);
+        miscs[2].SetActive(false);
+    }
+    public void ShowWeapon()
+    {
+        HideItems();
+        weapons[0].SetActive(true);
+        weapons[1].SetActive(true);
+        weapons[2].SetActive(true);
+    }
+    public void ShowArmour()
+    {
+        HideItems();
+        armours[0].SetActive(true);
+        armours[1].SetActive(true);
+        armours[2].SetActive(true);
+    }
+    public void ShowPotion()
+    {
+        HideItems();
+        potions[0].SetActive(true);
+        potions[1].SetActive(true);
+        potions[2].SetActive(true);
+    }
+    public void ShowFood()
+    {
+        HideItems();
+        foods[0].SetActive(true);
+        foods[1].SetActive(true);
+        foods[2].SetActive(true);
+    }
+    public void ShowIngredient()
+    {
+        HideItems();
+        ingredients[0].SetActive(true);
+        ingredients[1].SetActive(true);
+        ingredients[2].SetActive(true);
+    }
+    public void ShowCraftable()
+    {
+        HideItems();
+        craftables[0].SetActive(true);
+        craftables[1].SetActive(true);
+        craftables[2].SetActive(true);
+    }
+    public void ShowQuest()
+    {
+        HideItems();
+        quests[0].SetActive(true);
+        quests[1].SetActive(true);
+        quests[2].SetActive(true);
+    }
+    public void ShowMisc()
+    {
+        HideItems();
+        miscs[0].SetActive(true);
+        miscs[1].SetActive(true);
+        miscs[2].SetActive(true);
+    }
+    public void ShowAll()
+    {
+        weapons[0].SetActive(true);
+        weapons[1].SetActive(true);
+        weapons[2].SetActive(true);
+        armours[0].SetActive(true);
+        armours[1].SetActive(true);
+        armours[2].SetActive(true);
+        potions[0].SetActive(true);
+        potions[1].SetActive(true);
+        potions[2].SetActive(true);
+        foods[0].SetActive(true);
+        foods[1].SetActive(true);
+        foods[2].SetActive(true);
+        ingredients[0].SetActive(true);
+        ingredients[1].SetActive(true);
+        ingredients[2].SetActive(true);
+        craftables[0].SetActive(true);
+        craftables[1].SetActive(true);
+        craftables[2].SetActive(true);
+        quests[0].SetActive(true);
+        quests[1].SetActive(true);
+        quests[2].SetActive(true);
+        miscs[0].SetActive(true);
+        miscs[1].SetActive(true);
+        miscs[2].SetActive(true);
     }
     void DisplayInv()
     {
@@ -197,6 +321,13 @@ public class LinearInventory : MonoBehaviour
             }
         }
     }
+    public void ShowItemOptions()
+    {
+        ItemOptions[0] =  selectedItem.Name;
+       ItemOptions[1] = selectedItem.IconName;
+        ItemOptions[2] =  selectedItem.Description + "\nAmount: " + selectedItem.Amount + "\nPrice: $" + selectedItem.Value;
+        ItemOptions[3] = "Damage: " + selectedItem.Damage;
+    }
     void OnGUI()
     {
         if (showInv && !PauseMenu.isPaused)
@@ -264,6 +395,7 @@ public class LinearInventory : MonoBehaviour
             }
 
         }
+        
         void UseItem()
         {
             //displays all the stat and options on what to do with them
