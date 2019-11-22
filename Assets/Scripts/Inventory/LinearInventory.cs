@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class LinearInventory : MonoBehaviour
@@ -32,7 +33,7 @@ public class LinearInventory : MonoBehaviour
     public GameObject[] craftables;
     public GameObject[] quests;
     public GameObject[] miscs;
-    public GameObject[] ItemOptions;
+    public Text[] ItemOptions;
     public bool invFilterOptions;
     public GUISkin invSkin;
     public GUIStyle titleStyle;
@@ -323,10 +324,10 @@ public class LinearInventory : MonoBehaviour
     }
     public void ShowItemOptions()
     {
-        ItemOptions[0] =  selectedItem.Name;
-       ItemOptions[1] = selectedItem.IconName;
-        ItemOptions[2] =  selectedItem.Description + "\nAmount: " + selectedItem.Amount + "\nPrice: $" + selectedItem.Value;
-        ItemOptions[3] = "Damage: " + selectedItem.Damage;
+        ItemOptions[0].text =  selectedItem.Name;
+       ItemOptions[1].text = selectedItem.IconName;
+        ItemOptions[2].text =  selectedItem.Description + "\nAmount: " + selectedItem.Amount + "\nPrice: $" + selectedItem.Value;
+        ItemOptions[3].text = "Damage: " + selectedItem.Damage;
     }
     void OnGUI()
     {
