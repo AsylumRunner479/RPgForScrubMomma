@@ -18,14 +18,14 @@ public class Item
     private int _damage;
     private int _armour;
     private int _heal;
-    private Texture2D _iconName;
+    private Sprite _iconName;
     private GameObject _meshName;
 
     private ItemTypes _type;
     #endregion
     #region Properities
     //gives a database of names
-    public Texture2D IconName
+    public Sprite IconName
     {
         get { return _iconName; }
         set { _iconName = value; }

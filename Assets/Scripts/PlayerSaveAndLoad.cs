@@ -32,7 +32,10 @@ public class PlayerSaveAndLoad : MonoBehaviour
         player.curHealth = player.maxHealth;
         player.curMana = player.maxMana;
         PlayerHandler.curStamina = player.maxStamina;
-
+        for (int i = 0; i < player.stats.Length; i++)
+        {
+            player.stats[i].value = 10;
+        }
         player.transform.position = new Vector3(1, 1, 1);
         player.transform.rotation = new Quaternion(0, 0, 0, 0);
 
@@ -50,7 +53,10 @@ public class PlayerSaveAndLoad : MonoBehaviour
         player.maxHealth = data.maxHealth;
         player.maxMana = data.maxMana;
         player.maxStamina = data.maxStamina;
-
+        for (int i = 0; i < data.stats.Length; i++)
+        {
+            player.stats[i].value = data.stats[i];
+        }
         player.curHealth = data.curHealth;
         player.curMana = data.curMana;
         PlayerHandler.curStamina = data.curStamina;

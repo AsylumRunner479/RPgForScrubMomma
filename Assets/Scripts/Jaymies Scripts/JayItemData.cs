@@ -297,7 +297,7 @@ public static class JayItemData
             Damage = damage,
             Armour = armour,
             Heal = heal,
-            IconName = Resources.Load("Icons/" + iconName) as Texture2D,
+            IconName = Resources.Load("Icons/" + iconName) as Sprite,
             MeshName = Resources.Load("Prefabs/" + meshName) as GameObject,
             ItemType = type
         };

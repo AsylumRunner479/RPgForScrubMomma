@@ -2,43 +2,43 @@
 using UnityEngine;
 
 public static class ItemData
-{ 
+{
     public static Item CreateItem(int itemId)
     {
         #region Variables
-    
-    //id of the item for programmers and developers
-     string name = "";
-     string description = "";
-    //Amount of items of that type...Stackable
-    int amount = 0;
-    //Buy and Sell Price
-     int value = 0;
-     int damage = 0;
-     int armour = 0;
-    int heal = 0;
-     string iconName = "";
-     string meshName = "";
+
+        //id of the item for programmers and developers
+        string name = "";
+        string description = "";
+        //Amount of items of that type...Stackable
+        int amount = 0;
+        //Buy and Sell Price
+        int value = 0;
+        int damage = 0;
+        int armour = 0;
+        int heal = 0;
+        string iconName = "";
+        string meshName = "";
         //itemId is used in the game as a shorthand for referencing different items and assign value to the stats from Item
-     ItemTypes type = ItemTypes.Misc;
-    switch(itemId)
+        ItemTypes type = ItemTypes.Misc;
+        switch (itemId)
         {
             //an index of all the items you can get in this world and what type they are
             #region Armour 0-99
             case 0:
-            name = "LightArmour";
-         description = "helps you a bit";
-        //Amount of items of that type...Stackable
-         amount = 1;
-        //Buy and Sell Price
-         value = 100;
-         damage = 0;
-         armour = 1;
-        heal = 0;
-         iconName = "Armour/Light";
-         meshName = "Armour/Light";
-        type = ItemTypes.Armour;
-        break;
+                name = "LightArmour";
+                description = "helps you a bit";
+                //Amount of items of that type...Stackable
+                amount = 1;
+                //Buy and Sell Price
+                value = 100;
+                damage = 0;
+                armour = 1;
+                heal = 0;
+                iconName = "Armour/Light";
+                meshName = "Armour/Light";
+                type = ItemTypes.Armour;
+                break;
             case 1:
                 name = "MedArmour";
                 description = "helps you";
@@ -391,12 +391,12 @@ public static class ItemData
             Armour = armour,
             Heal = heal,
             //loads the icon and gameobject from the folders when needed
-            IconName = Resources.Load("Icons/"+ iconName) as Texture2D,
-            MeshName = Resources.Load("Prefabs/"+ meshName)as GameObject,
+            IconName = Resources.Load("Icons/" + iconName) as Sprite,
+            MeshName = Resources.Load("Prefabs/" + meshName) as GameObject,
             ItemType = type
-        
+
         };
         return temp;
-    #endregion
-}
+        #endregion
+    }
 }
