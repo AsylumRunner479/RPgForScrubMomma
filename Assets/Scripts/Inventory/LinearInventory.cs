@@ -364,7 +364,7 @@ public class LinearInventory : MonoBehaviour
         display.itemDescription.text = selectedItem.Description + "\nAmount: " + selectedItem.Amount + "\nPrice: $" + selectedItem.Value;
         display.itemDamage.text = "Damage: " + selectedItem.Damage;
         display.itemIcon.texture = selectedItem.IconName.texture;
-        
+        display.UseItem.text = "Use";
 
         Debug.Log("ShowItem");
     }
