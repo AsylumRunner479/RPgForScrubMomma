@@ -48,7 +48,7 @@ namespace RPG.Player
             //kills the enemy when they lose all their health
             if (curHealth <= 0)
             {
-                Die();    
+                Die();
             }
             //moves the enemy when the player is alive
             if (PlayerHandler.isDead == false)
@@ -75,12 +75,15 @@ namespace RPG.Player
 
                 else
                 {
+                    if (points == null)
+                        return;
+
                     if (points.Length == 0)
                         return;
 
                     // Set the agent to go to the currently selected destination.
                     agent.destination = points[currentWayPoint].position;
-                    //transform.position = Vector3.MoveTowards(transform.position, points[currentWayPoint].position, 1f);
+                    transform.position = Vector3.MoveTowards(transform.position, points[currentWayPoint].position, 1f);
                     if (transform.position.x == agent.destination.x && transform.position.z == agent.destination.z)
                     {
                         if (currentWayPoint < points.Length - 1)
