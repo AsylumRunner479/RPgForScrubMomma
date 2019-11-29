@@ -48,10 +48,11 @@ public class PlayerHandler : MonoBehaviour
     public string firstCheckPointName = "First CheckPoint";
     private void Start()
     {
+        isDead = false;
         playerAudio = GetComponent<AudioSource>();
         maxMana = 10 * stats[3].value;
         maxStamina = 10 * stats[1].value;
-        maxHealth = 10 * stats[4].value;
+        maxHealth = 10 * stats[4].value + 60f;
         curHealth = maxHealth;
         curMana = maxMana;
         curStamina = maxStamina;

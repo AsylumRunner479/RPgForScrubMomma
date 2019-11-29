@@ -9,6 +9,7 @@ public static class ItemData
 
         //id of the item for programmers and developers
         string name = "";
+        //allows you to desiginate what the names of the item use is
         string remove = "";
         string use = "";
         string description = "";
@@ -40,6 +41,7 @@ public static class ItemData
                 iconName = "Armour/Light";
                 meshName = "Armour/Light";
                 type = ItemTypes.Armour;
+                //what the display comes up with
                 use = "wear";
                 remove = "strip";
                 break;
