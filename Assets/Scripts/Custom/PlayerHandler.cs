@@ -52,6 +52,9 @@ public class PlayerHandler : MonoBehaviour
         maxMana = 10 * stats[3].value;
         maxStamina = 10 * stats[1].value;
         maxHealth = 10 * stats[4].value;
+        curHealth = maxHealth;
+        curMana = maxMana;
+        curStamina = maxStamina;
         for (int s = 0; s < power.Length; s++)
         {
             power[s].text = stats[s].name + ": " + (stats[s].value);
