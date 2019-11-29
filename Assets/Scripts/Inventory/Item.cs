@@ -20,7 +20,8 @@ public class Item
     private int _heal;
     private Sprite _iconName;
     private GameObject _meshName;
-
+    private string _useItem;
+    private string _removeItem;
     private ItemTypes _type;
     #endregion
     #region Properities
@@ -47,6 +48,16 @@ public class Item
     {
         get { return _description; }
         set { _description = value; }
+    }
+    public string UseItem
+    {
+        get { return _useItem; }
+        set { _useItem = value; }
+    }
+    public string RemoveItem
+    {
+        get { return _removeItem; }
+        set { _removeItem = value; }
     }
     //allows us to assign the level of protection
     public int Armour

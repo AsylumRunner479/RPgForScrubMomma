@@ -25,7 +25,7 @@ public class LinearInventory : MonoBehaviour
         public GameObject equippedItem;
     };
     public EquippedItems[] equippedItems;
-    
+
     public GameObject[] weapons;
     public GameObject[] armours;
     public GameObject[] potions;
@@ -49,6 +49,7 @@ public class LinearInventory : MonoBehaviour
         public Text itemDescription;
         public Text itemDamage;
         public Text UseItem;
+        public Text RemoveItem;
 
     };
     void Start()
@@ -148,7 +149,7 @@ public class LinearInventory : MonoBehaviour
         weapons[0].SetActive(true);
         weapons[1].SetActive(true);
         weapons[2].SetActive(true);
-       
+
     }
     public void ShowArmour()
     {
@@ -358,7 +359,8 @@ public class LinearInventory : MonoBehaviour
     {
         //ITEM DATA IS ALWAYS EMPTY!
 
-
+        display.UseItem.text = selectedItem.UseItem;
+        display.RemoveItem.text = selectedItem.RemoveItem;
         display.itemName.text = selectedItem.Name;
         //display.itemIcon.sprite = selectedItem.IconName;
         display.itemDescription.text = selectedItem.Description + "\nAmount: " + selectedItem.Amount + "\nPrice: $" + selectedItem.Value;
@@ -368,197 +370,325 @@ public class LinearInventory : MonoBehaviour
 
         Debug.Log("ShowItem");
     }
-    
-    //void OnGUI()
-    //{
-    //    if (showInv && !PauseMenu.isPaused)
-    //    {
-    //        scr = new Vector2(Screen.width / 16, Screen.height / 9);
-    //        GUI.skin = invSkin;
+    public void DiscardItem()
+    {
+        //check if the item is equipped
+                    for (int i = 0; i < equippedItems.Length; i++)
+                    {
+                       if (equippedItems[i].equippedItem != null && selectedItem.Name == equippedItems[i].equippedItem.name)
+                        {
+                            //if so destroy from scene
+                            Destroy(equippedItems[i].equippedItem);
+                        }
+                    }
 
-    //        DisplayInv();
-    //        if (GUI.Button(new Rect(4f * scr.x, 6.75f * scr.y, 1.5f * scr.x, 0.25f * scr.y), "Filter"))
-    //        {
-    //            invFilterOptions = !invFilterOptions;
+                    //spawn item at droplocation
+                    GameObject itemToDrop = Instantiate(selectedItem.MeshName, dropLocation.position, Quaternion.identity);
+                    //apply gravity and make sure its named correctly 
+                    itemToDrop.name = selectedItem.Name;
+                    itemToDrop.AddComponent<Rigidbody>().useGravity = true;
 
-    //        }
-    //        GUI.skin = null;
-    //        if (invFilterOptions)
-    //        {
-    //            //allows you filter the items by type for easier navigation
-    //            if (GUI.Button(new Rect(5.5f * scr.x, 6.75f * scr.y, 1.5f * scr.x, 0.25f * scr.y), "All"))
-    //            {
-    //                sortType = "All";
-    //            }
-    //            if (GUI.Button(new Rect(5.5f * scr.x, 7f * scr.y, 1.5f * scr.x, 0.25f * scr.y), "Weapon"))
-    //            {
-    //                sortType = "Weapon";
-    //            }
-    //            if (GUI.Button(new Rect(5.5f * scr.x, 7.25f * scr.y, 1.5f * scr.x, 0.25f * scr.y), "Armour"))
-    //            {
-    //                sortType = "Armour";
-    //            }
-    //            if (GUI.Button(new Rect(5.5f * scr.x, 7.5f * scr.y, 1.5f * scr.x, 0.25f * scr.y), "Potion"))
-    //            {
-    //                sortType = "Potion";
-    //            }
-    //            if (GUI.Button(new Rect(5.5f * scr.x, 7.75f * scr.y, 1.5f * scr.x, 0.25f * scr.y), "Food"))
-    //            {
-    //                sortType = "Food";
-    //            }
-    //            if (GUI.Button(new Rect(5.5f * scr.x, 8f * scr.y, 1.5f * scr.x, 0.25f * scr.y), "Ingredient"))
-    //            {
-    //                sortType = "Ingredient";
-    //            }
-    //            if (GUI.Button(new Rect(5.5f * scr.x, 8.25f * scr.y, 1.5f * scr.x, 0.25f * scr.y), "Craftable"))
-    //            {
-    //                sortType = "Craftable";
-    //            }
-    //            if (GUI.Button(new Rect(5.5f * scr.x, 8.5f * scr.y, 1.5f * scr.x, 0.25f * scr.y), "Quest"))
-    //            {
-    //                sortType = "Quest";
-    //            }
-    //            if (GUI.Button(new Rect(5.5f * scr.x, 8.75f * scr.y, 1.5f * scr.x, 0.25f * scr.y), "Misc"))
-    //            {
-    //                sortType = "Misc";
-    //            }
+                    //is the amount > 1 if so reduce from list
+                    if (selectedItem.Amount > 1)
+                    {
+                        selectedItem.Amount--;
+                    }
+                    else//else remove from list 
+                    {
+                        inv.Remove(selectedItem);
+                        selectedItem = null;
+                        return;
+                    }
+    }
+    public void RemoveItem()
+    {
+        switch (selectedItem.ItemType)
+            {
+                case ItemTypes.Armour:
+                    //this allows to wear and take off your colothing from your inventory
+                    if (!(equippedItems[1].equippedItem == null || selectedItem.Name != equippedItems[1].equippedItem.name))
+                    {
+                   
+                        Destroy(equippedItems[1].equippedItem);
+                        equippedItems[1].equippedItem = null;
+                    
+                }
+                    
+                    break;
+                case ItemTypes.Weapon:
+                    //when a weapon is selected this allows you to see the damage and equip and de equip it
+                    
+                    if (!(equippedItems[1].equippedItem == null || selectedItem.Name != equippedItems[1].equippedItem.name))
+                    {
+                   
+                        Destroy(equippedItems[1].equippedItem);
+                        equippedItems[1].equippedItem = null;
+                    
+                    }
+                    
+
+                        break;
+                    
+                    default:
+                        break;
+                }
+    }
+    public void UseItem()
+    {
+        switch (selectedItem.ItemType)
+            {
+                case ItemTypes.Armour:
+                    //this allows to wear and take off your colothing from your inventory
+                    if (equippedItems[1].equippedItem == null || selectedItem.Name != equippedItems[1].equippedItem.name)
+                    {
+                        
+                            if (equippedItems[1].equippedItem != null)
+                            {
+                                Destroy(equippedItems[1].equippedItem);
+                            }
+                            equippedItems[1].equippedItem = Instantiate(selectedItem.MeshName, equippedItems[1].location);
+                            equippedItems[1].equippedItem.name = selectedItem.Name;
+                        
+                    }
+                   
+                    break;
+                case ItemTypes.Weapon:
+                    //when a weapon is selected this allows you to see the damage and equip and de equip it
+                    
+                    if (equippedItems[1].equippedItem == null || selectedItem.Name != equippedItems[1].equippedItem.name)
+                    {
+                        
+                            if (equippedItems[1].equippedItem != null)
+                            {
+                                Destroy(equippedItems[1].equippedItem);
+                            }
+                            equippedItems[1].equippedItem = Instantiate(selectedItem.MeshName, equippedItems[1].location);
+                            equippedItems[1].equippedItem.name = selectedItem.Name;
+                        
+                    }
+                   
+
+                        break;
+                    case ItemTypes.Potion:
+                        
+                            // heals the player when they drink a potion
+                            player.curHealth += selectedItem.Heal;
+                            selectedItem.Amount -= 1;
+
+                        break;
+                    case ItemTypes.Food:
+                        
+                            //heals the player when they eat something
+                            player.curHealth += selectedItem.Heal;
+                           selectedItem.Amount -= 1;
+                        
+                        break;
+                   case ItemTypes.Ingredient:
+
+                            selectedItem.Amount -= 1;
+                        
+                        break;
+                    case ItemTypes.Craftable:
+                       
+                            selectedItem.Amount -= 1;
+                        
+                        break;
+                    default:
+                        break;
+                }
+        }
+
+
+        //void OnGUI()
+        //{
+        //    if (showInv && !PauseMenu.isPaused)
+        //    {
+        //        scr = new Vector2(Screen.width / 16, Screen.height / 9);
+        //        GUI.skin = invSkin;
+
+        //        DisplayInv();
+        //        if (GUI.Button(new Rect(4f * scr.x, 6.75f * scr.y, 1.5f * scr.x, 0.25f * scr.y), "Filter"))
+        //        {
+        //            invFilterOptions = !invFilterOptions;
+
+        //        }
+        //        GUI.skin = null;
+        //        if (invFilterOptions)
+        //        {
+        //            //allows you filter the items by type for easier navigation
+        //            if (GUI.Button(new Rect(5.5f * scr.x, 6.75f * scr.y, 1.5f * scr.x, 0.25f * scr.y), "All"))
+        //            {
+        //                sortType = "All";
+        //            }
+        //            if (GUI.Button(new Rect(5.5f * scr.x, 7f * scr.y, 1.5f * scr.x, 0.25f * scr.y), "Weapon"))
+        //            {
+        //                sortType = "Weapon";
+        //            }
+        //            if (GUI.Button(new Rect(5.5f * scr.x, 7.25f * scr.y, 1.5f * scr.x, 0.25f * scr.y), "Armour"))
+        //            {
+        //                sortType = "Armour";
+        //            }
+        //            if (GUI.Button(new Rect(5.5f * scr.x, 7.5f * scr.y, 1.5f * scr.x, 0.25f * scr.y), "Potion"))
+        //            {
+        //                sortType = "Potion";
+        //            }
+        //            if (GUI.Button(new Rect(5.5f * scr.x, 7.75f * scr.y, 1.5f * scr.x, 0.25f * scr.y), "Food"))
+        //            {
+        //                sortType = "Food";
+        //            }
+        //            if (GUI.Button(new Rect(5.5f * scr.x, 8f * scr.y, 1.5f * scr.x, 0.25f * scr.y), "Ingredient"))
+        //            {
+        //                sortType = "Ingredient";
+        //            }
+        //            if (GUI.Button(new Rect(5.5f * scr.x, 8.25f * scr.y, 1.5f * scr.x, 0.25f * scr.y), "Craftable"))
+        //            {
+        //                sortType = "Craftable";
+        //            }
+        //            if (GUI.Button(new Rect(5.5f * scr.x, 8.5f * scr.y, 1.5f * scr.x, 0.25f * scr.y), "Quest"))
+        //            {
+        //                sortType = "Quest";
+        //            }
+        //            if (GUI.Button(new Rect(5.5f * scr.x, 8.75f * scr.y, 1.5f * scr.x, 0.25f * scr.y), "Misc"))
+        //            {
+        //                sortType = "Misc";
+        //            }
 
 
 
-    //        }
-    //        if (selectedItem == null)
-    //        {
-    //            return;
-    //        }
-    //        else
-    //        {
-    //            UseItem();
-    //        }
+        //        }
+        //        if (selectedItem == null)
+        //        {
+        //            return;
+        //        }
+        //        else
+        //        {
+        //            UseItem();
+        //        }
 
-    //    }
+        //    }
 
-    //    void UseItem()
-    //    {
-    //        //displays all the stat and options on what to do with them
-    //        GUI.Box(new Rect(4f * scr.x, 0.25f * scr.y, 3 * scr.x, 0.25f * scr.y), selectedItem.Name, titleStyle);
-    //        GUI.skin = invSkin;
-    //        // GUI.Box(new Rect(4f * scr.x, 0.5f * scr.y, 3 * scr.x, 3 * scr.y), selectedItem.IconName);
-    //        GUI.Box(new Rect(4f * scr.x, 3.5f * scr.y, 3 * scr.x, 3 * scr.y), selectedItem.Description + "\nAmount: " + selectedItem.Amount + "\nPrice: $" + selectedItem.Value);
-    //        switch (selectedItem.ItemType)
-    //        {
-    //            case ItemTypes.Armour:
-    //                //this allows to wear and take off your colothing from your inventory
-    //                if (equippedItems[1].equippedItem == null || selectedItem.Name != equippedItems[1].equippedItem.name)
-    //                {
-    //                    if (GUI.Button(new Rect(4 * scr.x, 6.5f * scr.y, 1.5f * scr.x, 0.25f * scr.y), "Wear"))
-    //                    {
-    //                        if (equippedItems[1].equippedItem != null)
-    //                        {
-    //                            Destroy(equippedItems[1].equippedItem);
-    //                        }
-    //                        equippedItems[1].equippedItem = Instantiate(selectedItem.MeshName, equippedItems[1].location);
-    //                        equippedItems[1].equippedItem.name = selectedItem.Name;
-    //                    }
-    //                }
-    //                else
-    //                {
-    //                    if (GUI.Button(new Rect(4 * scr.x, 7f * scr.y, 1.5f * scr.x, 0.25f * scr.y), "strip"))
-    //                    {
-    //                        Destroy(equippedItems[1].equippedItem);
-    //                        equippedItems[1].equippedItem = null;
-    //                    }
-    //                }
-    //                break;
-    //            case ItemTypes.Weapon:
-    //                //when a weapon is selected this allows you to see the damage and equip and de equip it
-    //                GUI.Box(new Rect(4 * scr.x, 7f * scr.y, 1.5f * scr.x, 0.25f * scr.y), "Damage: " + selectedItem.Damage);
-    //                if (equippedItems[1].equippedItem == null || selectedItem.Name != equippedItems[1].equippedItem.name)
-    //                {
-    //                    if (GUI.Button(new Rect(4 * scr.x, 6.5f * scr.y, 1.5f * scr.x, 0.25f * scr.y), "Equip"))
-    //                    {
-    //                        if (equippedItems[1].equippedItem != null)
-    //                        {
-    //                            Destroy(equippedItems[1].equippedItem);
-    //                        }
-    //                        equippedItems[1].equippedItem = Instantiate(selectedItem.MeshName, equippedItems[1].location);
-    //                        equippedItems[1].equippedItem.name = selectedItem.Name;
-    //                    }
-    //                }
-    //                else
-    //                {
-    //                    if (GUI.Button(new Rect(4 * scr.x, 6.5f * scr.y, 1.5f * scr.x, 0.25f * scr.y), "UnEquip"))
-    //                    {
-    //                        Destroy(equippedItems[1].equippedItem);
-    //                        equippedItems[1].equippedItem = null;
-    //                    }
-    //                }
+        //    void UseItem()
+        //    {
+        //        //displays all the stat and options on what to do with them
+        //        GUI.Box(new Rect(4f * scr.x, 0.25f * scr.y, 3 * scr.x, 0.25f * scr.y), selectedItem.Name, titleStyle);
+        //        GUI.skin = invSkin;
+        //        // GUI.Box(new Rect(4f * scr.x, 0.5f * scr.y, 3 * scr.x, 3 * scr.y), selectedItem.IconName);
+        //        GUI.Box(new Rect(4f * scr.x, 3.5f * scr.y, 3 * scr.x, 3 * scr.y), selectedItem.Description + "\nAmount: " + selectedItem.Amount + "\nPrice: $" + selectedItem.Value);
+        //        switch (selectedItem.ItemType)
+        //        {
+        //            case ItemTypes.Armour:
+        //                //this allows to wear and take off your colothing from your inventory
+        //                if (equippedItems[1].equippedItem == null || selectedItem.Name != equippedItems[1].equippedItem.name)
+        //                {
+        //                    if (GUI.Button(new Rect(4 * scr.x, 6.5f * scr.y, 1.5f * scr.x, 0.25f * scr.y), "Wear"))
+        //                    {
+        //                        if (equippedItems[1].equippedItem != null)
+        //                        {
+        //                            Destroy(equippedItems[1].equippedItem);
+        //                        }
+        //                        equippedItems[1].equippedItem = Instantiate(selectedItem.MeshName, equippedItems[1].location);
+        //                        equippedItems[1].equippedItem.name = selectedItem.Name;
+        //                    }
+        //                }
+        //                else
+        //                {
+        //                    if (GUI.Button(new Rect(4 * scr.x, 7f * scr.y, 1.5f * scr.x, 0.25f * scr.y), "strip"))
+        //                    {
+        //                        Destroy(equippedItems[1].equippedItem);
+        //                        equippedItems[1].equippedItem = null;
+        //                    }
+        //                }
+        //                break;
+        //            case ItemTypes.Weapon:
+        //                //when a weapon is selected this allows you to see the damage and equip and de equip it
+        //                GUI.Box(new Rect(4 * scr.x, 7f * scr.y, 1.5f * scr.x, 0.25f * scr.y), "Damage: " + selectedItem.Damage);
+        //                if (equippedItems[1].equippedItem == null || selectedItem.Name != equippedItems[1].equippedItem.name)
+        //                {
+        //                    if (GUI.Button(new Rect(4 * scr.x, 6.5f * scr.y, 1.5f * scr.x, 0.25f * scr.y), "Equip"))
+        //                    {
+        //                        if (equippedItems[1].equippedItem != null)
+        //                        {
+        //                            Destroy(equippedItems[1].equippedItem);
+        //                        }
+        //                        equippedItems[1].equippedItem = Instantiate(selectedItem.MeshName, equippedItems[1].location);
+        //                        equippedItems[1].equippedItem.name = selectedItem.Name;
+        //                    }
+        //                }
+        //                else
+        //                {
+        //                    if (GUI.Button(new Rect(4 * scr.x, 6.5f * scr.y, 1.5f * scr.x, 0.25f * scr.y), "UnEquip"))
+        //                    {
+        //                        Destroy(equippedItems[1].equippedItem);
+        //                        equippedItems[1].equippedItem = null;
+        //                    }
+        //                }
 
-    //                break;
-    //            case ItemTypes.Potion:
-    //                if (GUI.Button(new Rect(4 * scr.x, 6.5f * scr.y, 1.5f * scr.x, 0.25f * scr.y), "Drink"))
-    //                {
-    //                    // heals the player when they drink a potion
-    //                    player.curHealth += selectedItem.Heal;
-    //                    selectedItem.Amount -= 1;
+        //                break;
+        //            case ItemTypes.Potion:
+        //                if (GUI.Button(new Rect(4 * scr.x, 6.5f * scr.y, 1.5f * scr.x, 0.25f * scr.y), "Drink"))
+        //                {
+        //                    // heals the player when they drink a potion
+        //                    player.curHealth += selectedItem.Heal;
+        //                    selectedItem.Amount -= 1;
 
-    //                }
-    //                break;
-    //            case ItemTypes.Food:
-    //                if (GUI.Button(new Rect(4 * scr.x, 6.5f * scr.y, 1.5f * scr.x, 0.25f * scr.y), "Eat"))
-    //                {
-    //                    //heals the player when they eat something
-    //                    player.curHealth += selectedItem.Heal;
-    //                    selectedItem.Amount -= 1;
-    //                }
-    //                break;
-    //            case ItemTypes.Ingredient:
-    //                if (GUI.Button(new Rect(4 * scr.x, 6.5f * scr.y, 1.5f * scr.x, 0.25f * scr.y), "Use"))
-    //                {
-    //                    selectedItem.Amount -= 1;
-    //                }
-    //                break;
-    //            case ItemTypes.Craftable:
-    //                if (GUI.Button(new Rect(4 * scr.x, 6.5f * scr.y, 1.5f * scr.x, 0.25f * scr.y), "Use"))
-    //                {
-    //                    selectedItem.Amount -= 1;
-    //                }
-    //                break;
-    //            default:
-    //                break;
-    //        }
+        //                }
+        //                break;
+        //            case ItemTypes.Food:
+        //                if (GUI.Button(new Rect(4 * scr.x, 6.5f * scr.y, 1.5f * scr.x, 0.25f * scr.y), "Eat"))
+        //                {
+        //                    //heals the player when they eat something
+        //                    player.curHealth += selectedItem.Heal;
+        //                    selectedItem.Amount -= 1;
+        //                }
+        //                break;
+        //            case ItemTypes.Ingredient:
+        //                if (GUI.Button(new Rect(4 * scr.x, 6.5f * scr.y, 1.5f * scr.x, 0.25f * scr.y), "Use"))
+        //                {
+        //                    selectedItem.Amount -= 1;
+        //                }
+        //                break;
+        //            case ItemTypes.Craftable:
+        //                if (GUI.Button(new Rect(4 * scr.x, 6.5f * scr.y, 1.5f * scr.x, 0.25f * scr.y), "Use"))
+        //                {
+        //                    selectedItem.Amount -= 1;
+        //                }
+        //                break;
+        //            default:
+        //                break;
+        //        }
 
-    //        // this allows the player to throw away items they don't need or want
-    //        if (GUI.Button(new Rect(5.5f * scr.x, 6.5f * scr.y, 1.5f * scr.x, 0.25f * scr.y), "Discard"))
-    //        {
-    //            //check if the item is equipped
-    //            for (int i = 0; i < equippedItems.Length; i++)
-    //            {
-    //                if (equippedItems[i].equippedItem != null && selectedItem.Name == equippedItems[i].equippedItem.name)
-    //                {
-    //                    //if so destroy from scene
-    //                    Destroy(equippedItems[i].equippedItem);
-    //                }
-    //            }
+        //        // this allows the player to throw away items they don't need or want
+        //        if (GUI.Button(new Rect(5.5f * scr.x, 6.5f * scr.y, 1.5f * scr.x, 0.25f * scr.y), "Discard"))
+        //        {
+        //            //check if the item is equipped
+        //            for (int i = 0; i < equippedItems.Length; i++)
+        //            {
+        //                if (equippedItems[i].equippedItem != null && selectedItem.Name == equippedItems[i].equippedItem.name)
+        //                {
+        //                    //if so destroy from scene
+        //                    Destroy(equippedItems[i].equippedItem);
+        //                }
+        //            }
 
-    //            //spawn item at droplocation
-    //            GameObject itemToDrop = Instantiate(selectedItem.MeshName, dropLocation.position, Quaternion.identity);
-    //            //apply gravity and make sure its named correctly 
-    //            itemToDrop.name = selectedItem.Name;
-    //            itemToDrop.AddComponent<Rigidbody>().useGravity = true;
+        //            //spawn item at droplocation
+        //            GameObject itemToDrop = Instantiate(selectedItem.MeshName, dropLocation.position, Quaternion.identity);
+        //            //apply gravity and make sure its named correctly 
+        //            itemToDrop.name = selectedItem.Name;
+        //            itemToDrop.AddComponent<Rigidbody>().useGravity = true;
 
-    //            //is the amount > 1 if so reduce from list
-    //            if (selectedItem.Amount > 1)
-    //            {
-    //                selectedItem.Amount--;
-    //            }
-    //            else//else remove from list 
-    //            {
-    //                inv.Remove(selectedItem);
-    //                selectedItem = null;
-    //                return;
-    //            }
+        //            //is the amount > 1 if so reduce from list
+        //            if (selectedItem.Amount > 1)
+        //            {
+        //                selectedItem.Amount--;
+        //            }
+        //            else//else remove from list 
+        //            {
+        //                inv.Remove(selectedItem);
+        //                selectedItem = null;
+        //                return;
+        //            }
 
-    //        }
-    //    }
-    //}
-}
+        //        }
+        //    }
+        //}
+    }

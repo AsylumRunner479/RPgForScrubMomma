@@ -9,6 +9,8 @@ public static class ItemData
 
         //id of the item for programmers and developers
         string name = "";
+        string remove = "";
+        string use = "";
         string description = "";
         //Amount of items of that type...Stackable
         int amount = 0;
@@ -38,6 +40,8 @@ public static class ItemData
                 iconName = "Armour/Light";
                 meshName = "Armour/Light";
                 type = ItemTypes.Armour;
+                use = "wear";
+                remove = "strip";
                 break;
             case 1:
                 name = "MedArmour";
@@ -52,6 +56,8 @@ public static class ItemData
                 iconName = "Armour/Med";
                 meshName = "Armour/Med";
                 type = ItemTypes.Armour;
+                use = "wear";
+                remove = "strip";
                 break;
             case 2:
                 name = "HeavyArmour";
@@ -66,6 +72,8 @@ public static class ItemData
                 iconName = "Armour/Heavy";
                 meshName = "Armour/Heavy";
                 type = ItemTypes.Armour;
+                use = "wear";
+                remove = "strip";
                 break;
             #endregion
             #region Weapeon 100-199
@@ -82,6 +90,8 @@ public static class ItemData
                 iconName = "Weapeon/dagger";
                 meshName = "Weapeon/dagger";
                 type = ItemTypes.Weapon;
+                use = "equip";
+                remove = "unequip";
                 break;
             case 101:
                 name = "Sword";
@@ -96,6 +106,8 @@ public static class ItemData
                 iconName = "Weapeon/sword";
                 meshName = "Weapeon/sword";
                 type = ItemTypes.Weapon;
+                use = "equip";
+                remove = "unequip";
                 break;
             case 102:
                 name = "Axe";
@@ -110,6 +122,8 @@ public static class ItemData
                 iconName = "Weapeon/axe";
                 meshName = "Weapeon/axe";
                 type = ItemTypes.Weapon;
+                use = "equip";
+                remove = "unequip";
                 break;
 
 
@@ -128,6 +142,8 @@ public static class ItemData
                 iconName = "Potion/minHealth";
                 meshName = "Potion/minHealth";
                 type = ItemTypes.Potion;
+                use = "drink";
+                remove = "";
                 break;
             case 201:
                 name = "medHealth";
@@ -142,6 +158,8 @@ public static class ItemData
                 iconName = "Potion/medHealth";
                 meshName = "Potion/medHealth";
                 type = ItemTypes.Potion;
+                use = "drink";
+                remove = "";
                 break;
             case 202:
                 name = "maxHealth";
@@ -156,6 +174,8 @@ public static class ItemData
                 iconName = "Potion/maxHealth";
                 meshName = "Potion/maxHealth";
                 type = ItemTypes.Potion;
+                use = "drink";
+                remove = "";
                 break;
             #endregion
             #region Food 300-399
@@ -172,6 +192,8 @@ public static class ItemData
                 iconName = "Food/Apple";
                 meshName = "Food/Apple";
                 type = ItemTypes.Food;
+                use = "eat";
+                remove = "";
                 break;
             case 301:
                 name = "Meat";
@@ -186,6 +208,8 @@ public static class ItemData
                 iconName = "Food/Meat";
                 meshName = "Food/Meat";
                 type = ItemTypes.Food;
+                use = "eat";
+                remove = "";
                 break;
             case 302:
                 name = "Pizza";
@@ -200,6 +224,8 @@ public static class ItemData
                 iconName = "Food/Pizza";
                 meshName = "Food/Pizza";
                 type = ItemTypes.Food;
+                use = "eat";
+                remove = "";
                 break;
             #endregion
             #region Ingredient 400-499
@@ -216,6 +242,8 @@ public static class ItemData
                 iconName = "Ingrediant/wood";
                 meshName = "Ingrediant/wood";
                 type = ItemTypes.Ingredient;
+                use = "cook";
+                remove = "";
                 break;
             case 401:
                 name = "stone";
@@ -230,6 +258,8 @@ public static class ItemData
                 iconName = "Ingrediant/stone";
                 meshName = "Ingrediant/stone";
                 type = ItemTypes.Ingredient;
+                use = "cook";
+                remove = "";
                 break;
             case 402:
                 name = "steel";
@@ -244,6 +274,8 @@ public static class ItemData
                 iconName = "Ingrediant/steel";
                 meshName = "Ingrediant/steel";
                 type = ItemTypes.Ingredient;
+                use = "cook";
+                remove = "";
                 break;
             #endregion
             #region Craftable 500-599
@@ -260,6 +292,8 @@ public static class ItemData
                 iconName = "Craftable/mushroom";
                 meshName = "Craftable/mushroom";
                 type = ItemTypes.Craftable;
+                use = "craft";
+                remove = "";
                 break;
             case 501:
                 name = "grass";
@@ -274,6 +308,8 @@ public static class ItemData
                 iconName = "Craftable/grass";
                 meshName = "Craftable/grass";
                 type = ItemTypes.Craftable;
+                use = "craft";
+                remove = "";
                 break;
             case 502:
                 name = "flower";
@@ -288,6 +324,8 @@ public static class ItemData
                 iconName = "Craftable/flower";
                 meshName = "Craftable/flower";
                 type = ItemTypes.Craftable;
+                use = "craft";
+                remove = "";
                 break;
             #endregion
             #region Quest 600-699
@@ -304,6 +342,8 @@ public static class ItemData
                 iconName = "Quest/purple";
                 meshName = "Quest/purple";
                 type = ItemTypes.Quest;
+                use = "open";
+                remove = "";
                 break;
             case 601:
                 name = "yellow key";
@@ -318,6 +358,8 @@ public static class ItemData
                 iconName = "Quest/yellow";
                 meshName = "Quest/yellow";
                 type = ItemTypes.Quest;
+                use = "open";
+                remove = "";
                 break;
             case 602:
                 name = "green key";
@@ -332,6 +374,8 @@ public static class ItemData
                 iconName = "Quest/green";
                 meshName = "Quest/green";
                 type = ItemTypes.Quest;
+                use = "open";
+                remove = "";
                 break;
             #endregion
             #region Misc 700-799
@@ -348,6 +392,8 @@ public static class ItemData
                 iconName = "Misc/trans";
                 meshName = "Misc/trans";
                 type = ItemTypes.Misc;
+                use = "use";
+                remove = "";
                 break;
             case 701:
                 name = "onyx";
@@ -362,6 +408,8 @@ public static class ItemData
                 iconName = "Misc/black";
                 meshName = "Misc/black";
                 type = ItemTypes.Misc;
+                use = "use";
+                remove = "";
                 break;
             case 702:
                 name = "gold";
@@ -376,6 +424,8 @@ public static class ItemData
                 iconName = "Misc/yellow";
                 meshName = "Misc/yellow";
                 type = ItemTypes.Misc;
+                use = "use";
+                remove = "";
                 break;
                 #endregion
         }
@@ -393,7 +443,9 @@ public static class ItemData
             //loads the icon and gameobject from the folders when needed
             IconName = Resources.Load("Icons/" + iconName) as Sprite,
             MeshName = Resources.Load("Prefabs/" + meshName) as GameObject,
-            ItemType = type
+            ItemType = type,
+            RemoveItem = remove,
+            UseItem = use
 
         };
         return temp;
