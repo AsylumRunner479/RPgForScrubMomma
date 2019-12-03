@@ -123,12 +123,12 @@ public class Customisation : MonoBehaviour
         //make the function only work when you use up the points
         if (points == 0)
         {
-            //set the maxHealth in the playerhandler to 100
-            player.maxHealth = 100;
-            //set the maxMana in the playerhandler to 100
-            player.maxMana = 100;
-            //set the maxStamina in the playerhandler to 100
-            player.maxStamina = 100;
+            //set maxMana to ten times the stat 3 value (intelligence)
+            player.maxMana = 10f * player.stats[3].value;
+            //set maxStamina to ten times the stat 1 value (dexterity)
+            player.maxStamina = 10f * player.stats[1].value;
+            //set maxHealth to ten time the stat 4 value (wisdom) + 60
+            player.maxHealth = 10f * player.stats[4].value + 60f;
             //set the curHealth in the playerhandler to maxhealth
             player.curHealth = player.maxHealth;
             //set the curMana in the playerhandler to maxMana
