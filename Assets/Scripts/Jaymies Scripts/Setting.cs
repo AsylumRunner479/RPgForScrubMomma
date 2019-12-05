@@ -20,7 +20,7 @@ public class Setting : MonoBehaviour
     Resolution[] resolutions;
     // Start is called before the first frame update
     //public KeyBinds[] keys;
-   //create a struture called KeyBinds and include a string called name and a KeyCode called key
+    //create a struture called KeyBinds and include a string called name and a KeyCode called key
     struct KeyBinds
     {
         public string name;
@@ -30,7 +30,7 @@ public class Setting : MonoBehaviour
     // create a public Text for keyButtons, forwardButton and backwardButton
     public Text keyButtons;
     public Text forwardButton, backwardButton;
-    //create a publi KeyCode called forward, backward and tempKey
+    //create a public KeyCode called forward, backward and tempKey
     public KeyCode forward, backward, tempKey;
     //create a private function that works at the start of the scene
     void Start()
@@ -61,7 +61,7 @@ public class Setting : MonoBehaviour
             string option = resolutions[i].width + " x " + resolutions[i].height;
             options.Add(option);
 
-            if(resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height)
+            if (resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height)
             {
                 currentResolutionIndex = 1;
             }
@@ -73,29 +73,60 @@ public class Setting : MonoBehaviour
         resolutionDropDown.value = currentResolutionIndex;
         //Refresh the value of the resolutionDropDown
         resolutionDropDown.RefreshShownValue();
-        //creat an event called e and set it to current event
+
+
+    }
+    private void SetKeyCode()
+    {
+
+        //create an event called e and set it to current event
         Event e = Event.current;
+
+        //tempKey = e.keyCode;
         //if forward does not have a keycode and e.keycode does not equal backward then set forward to e.keycode and set fowardButton text to forward
         //if forward does not have a keycode and e.keycode does equal backward then set forward to tempKey and set fowardButton text to forward
         if (forward == KeyCode.None)
         {
+            //if keycode does not equal backward
             if (e.keyCode != backward)
             {
+                //make forward equal to e keycode and deisplay text
                 forward = e.keyCode;
                 forwardButton.text = forward.ToString();
+
             }
             else
             {
+                //make forward the tempKey
                 forward = tempKey;
                 forwardButton.text = forward.ToString();
             }
+
+
         }
+        //if backward does not have a keycode and e.keycode does not equal forward then set backward to e.keycode and set backwardButton text to backward
+        //if backward does not have a keycode and e.keycode does equal forward then set backward to tempKey and set backwardButton text to backward
+        if (backward == KeyCode.None)
+        {
+            if (e.keyCode != forward)
+            {
+                backward = e.keyCode;
+                backwardButton.text = backward.ToString();
+            }
+            else
+            {
+                backward = tempKey;
+                backwardButton.text = backward.ToString();
+            }
+        }
+
+
     }
     //create a public function called Forward
     public void Forward()
     {
-        //allows you to change what you do to go forward
-        //if backward 
+        //allows you to change Forward keycode to none
+        //if backward is not None 
         if (backward != KeyCode.None)
         {
 
@@ -103,6 +134,20 @@ public class Setting : MonoBehaviour
             forward = KeyCode.None;
         }
         forwardButton.text = forward.ToString();
+
+    }
+    public void Backward()
+    {
+        //allows you to change Backward keycode to none
+        //if forward is not None 
+        if (forward != KeyCode.None)
+        {
+
+            tempKey = backward;
+            backward = KeyCode.None;
+        }
+        backwardButton.text = backward.ToString();
+
     }
     //create a public function called SetVolume with a volume float
     public void SetVolume(float volume)
@@ -137,10 +182,10 @@ public class Setting : MonoBehaviour
     }
 
     //create a public function called OpenSettings
-   public void OpenSettings()
+    public void OpenSettings()
     {
         //if SettingsOpen is false then set to true and make Settings gameobject active
-        if(!SettingsOpen)
+        if (!SettingsOpen)
         {
             Settings.SetActive(true);
             SettingsOpen = true;
@@ -154,10 +199,12 @@ public class Setting : MonoBehaviour
     }
     //create a public function called Update
     //if SettingsOpen is true then change timeScale to 0 otherwise set it to 1
-    void Update()
+    void OnGUI()
     {
-     //changes timescale based on whther the setting is open
-        if(SettingsOpen)
+        // activate the SetKeyCode function
+        SetKeyCode();
+        //changes timescale based on whther the setting is open
+        if (SettingsOpen)
         {
             Time.timeScale = 0;
         }
